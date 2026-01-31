@@ -1,0 +1,188 @@
+/* ============================================
+   Theme CSS Variables
+   Additional theming utilities
+   ============================================ */
+
+/* Code syntax highlighting - Light theme */
+:root {
+  --code-background: #f8f9fc;
+  --code-text: #1a1a2e;
+  --code-comment: #6b7280;
+  --code-keyword: #8b5cf6;
+  --code-string: #059669;
+  --code-number: #dc2626;
+  --code-function: #2563eb;
+  --code-variable: #ea580c;
+  --code-operator: #71717a;
+  --code-class: #0891b2;
+  --code-property: #7c3aed;
+  --code-punctuation: #52525b;
+  --code-line-number: #9ca3af;
+  --code-line-highlight: #e0e7ff;
+  --code-selection: #c7d2fe;
+}
+
+/* Code syntax highlighting - Dark theme */
+.dark {
+  --code-background: #1e1e2e;
+  --code-text: #e4e4e7;
+  --code-comment: #6b7280;
+  --code-keyword: #a78bfa;
+  --code-string: #34d399;
+  --code-number: #f87171;
+  --code-function: #60a5fa;
+  --code-variable: #fb923c;
+  --code-operator: #a1a1aa;
+  --code-class: #22d3ee;
+  --code-property: #c4b5fd;
+  --code-punctuation: #a1a1aa;
+  --code-line-number: #52525b;
+  --code-line-highlight: #3730a3;
+  --code-selection: #4c1d95;
+}
+
+/* Code block styling */
+.code-block {
+  background: var(--code-background);
+  color: var(--code-text);
+  border-radius: 0.5rem;
+  font-family: var(--font-mono);
+  font-size: 0.875rem;
+  line-height: 1.7;
+  overflow-x: auto;
+}
+
+.code-block .line-number {
+  color: var(--code-line-number);
+  user-select: none;
+  padding-right: 1rem;
+  text-align: right;
+  min-width: 2.5rem;
+}
+
+.code-block .line-highlight {
+  background: var(--code-line-highlight);
+  display: block;
+  margin: 0 -1rem;
+  padding: 0 1rem;
+}
+
+/* Syntax token colors */
+.token.comment,
+.token.prolog,
+.token.doctype,
+.token.cdata {
+  color: var(--code-comment);
+}
+
+.token.punctuation {
+  color: var(--code-punctuation);
+}
+
+.token.property,
+.token.tag,
+.token.constant,
+.token.symbol,
+.token.deleted {
+  color: var(--code-property);
+}
+
+.token.boolean,
+.token.number {
+  color: var(--code-number);
+}
+
+.token.selector,
+.token.attr-name,
+.token.string,
+.token.char,
+.token.builtin,
+.token.inserted {
+  color: var(--code-string);
+}
+
+.token.operator,
+.token.entity,
+.token.url,
+.language-css .token.string,
+.style .token.string,
+.token.variable {
+  color: var(--code-variable);
+}
+
+.token.atrule,
+.token.attr-value,
+.token.keyword {
+  color: var(--code-keyword);
+}
+
+.token.function,
+.token.class-name {
+  color: var(--code-function);
+}
+
+.token.regex,
+.token.important {
+  color: var(--code-class);
+}
+
+/* Interactive state colors */
+:root {
+  --interactive-hover: rgba(0, 0, 0, 0.04);
+  --interactive-active: rgba(0, 0, 0, 0.08);
+  --interactive-focus: rgba(90, 115, 242, 0.2);
+}
+
+.dark {
+  --interactive-hover: rgba(255, 255, 255, 0.06);
+  --interactive-active: rgba(255, 255, 255, 0.1);
+  --interactive-focus: rgba(126, 154, 248, 0.3);
+}
+
+/* Status colors */
+:root {
+  --status-success: #22c55e;
+  --status-success-bg: #dcfce7;
+  --status-warning: #eab308;
+  --status-warning-bg: #fef9c3;
+  --status-error: #ef4444;
+  --status-error-bg: #fee2e2;
+  --status-info: #3b82f6;
+  --status-info-bg: #dbeafe;
+}
+
+.dark {
+  --status-success: #4ade80;
+  --status-success-bg: #14532d;
+  --status-warning: #facc15;
+  --status-warning-bg: #713f12;
+  --status-error: #f87171;
+  --status-error-bg: #7f1d1d;
+  --status-info: #60a5fa;
+  --status-info-bg: #1e3a8a;
+}
+
+/* Shadow utilities for different themes */
+:root {
+  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1),
+    0 4px 6px -4px rgb(0 0 0 / 0.1);
+  --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1),
+    0 8px 10px -6px rgb(0 0 0 / 0.1);
+  --shadow-card: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+  --shadow-card-hover: 0 10px 15px -3px rgb(0 0 0 / 0.1),
+    0 4px 6px -4px rgb(0 0 0 / 0.1);
+}
+
+.dark {
+  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.3);
+  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.4), 0 2px 4px -2px rgb(0 0 0 / 0.3);
+  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.4),
+    0 4px 6px -4px rgb(0 0 0 / 0.3);
+  --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.4),
+    0 8px 10px -6px rgb(0 0 0 / 0.3);
+  --shadow-card: 0 1px 3px 0 rgb(0 0 0 / 0.4), 0 1px 2px -1px rgb(0 0 0 / 0.3);
+  --shadow-card-hover: 0 10px 15px -3px rgb(0 0 0 / 0.4),
+    0 4px 6px -4px rgb(0 0 0 / 0.3);
+}

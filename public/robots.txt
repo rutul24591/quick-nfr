@@ -1,0 +1,12 @@
+# NFR Guide - Robots.txt
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://nfr-guide.dev/sitemap.xml
+
+# Disallow API routes (if any)
+Disallow: /api/
+
+# Crawl delay for politeness
+Crawl-delay: 1

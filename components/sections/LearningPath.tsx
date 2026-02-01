@@ -52,13 +52,17 @@ export function LearningPath({
             const isLast = index === steps.length - 1;
 
             return (
-              <motion.div key={step.id} variants={fadeInUp} className="relative">
+              <motion.div
+                key={step.id}
+                variants={fadeInUp}
+                className="relative"
+              >
                 {/* Connector line */}
                 {!isLast && (
                   <div
                     className={cn(
                       "absolute left-6 top-16 w-0.5 h-full -translate-x-1/2",
-                      "bg-gradient-to-b from-primary-300 to-primary-100 dark:from-primary-700 dark:to-primary-900"
+                      "bg-gradient-to-b from-primary-300 to-primary-100 dark:from-primary-700 dark:to-primary-900",
                     )}
                   />
                 )}
@@ -73,7 +77,7 @@ export function LearningPath({
                     className={cn(
                       "mb-4 relative",
                       "transition-all duration-300",
-                      isCompleted && "border-green-300 dark:border-green-700"
+                      isCompleted && "border-green-300 dark:border-green-700",
                     )}
                   >
                     <div className="flex items-start gap-4">
@@ -84,7 +88,7 @@ export function LearningPath({
                             "w-12 h-12 rounded-full flex items-center justify-center",
                             isCompleted
                               ? "bg-green-100 dark:bg-green-900/30"
-                              : "bg-primary-100 dark:bg-primary-900/30"
+                              : "bg-primary-100 dark:bg-primary-900/30",
                           )}
                           whileHover={{ scale: 1.1 }}
                           transition={{ duration: 0.2 }}
@@ -105,7 +109,10 @@ export function LearningPath({
                           <span className="text-sm font-mono text-[var(--muted-foreground)]">
                             NFR #{step.id.toString().padStart(3, "0")}
                           </span>
-                          <DifficultyBadge difficulty={step.difficulty} size="sm" />
+                          <DifficultyBadge
+                            difficulty={step.difficulty}
+                            size="sm"
+                          />
                         </div>
 
                         <h3 className="text-lg font-semibold mb-2 group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors">

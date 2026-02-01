@@ -35,7 +35,7 @@ export function Hero({
     <section
       className={cn(
         "relative min-h-[60vh] flex items-center justify-center overflow-hidden",
-        className
+        className,
       )}
     >
       {/* Animated background */}
@@ -151,12 +151,6 @@ export function Hero({
           >
             Explore Categories
             <ArrowRight className="w-4 h-4 ml-2" />
-          </Link>
-          <Link
-            href="/categories/frontend/001-page-load-performance"
-            className="inline-flex items-center justify-center px-6 py-3 text-lg font-medium rounded-lg border-2 border-primary-600 text-primary-600 hover:bg-primary-50 dark:border-primary-400 dark:text-primary-400 dark:hover:bg-primary-950 transition-colors"
-          >
-            Start Learning
           </Link>
         </motion.div>
 

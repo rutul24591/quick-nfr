@@ -68,8 +68,7 @@ export const CATEGORIES: Record<NFRCategory, CategoryInfo> = {
     id: "shared",
     name: "Shared",
     slug: "shared",
-    description:
-      "Cross-cutting concerns spanning frontend and backend systems",
+    description: "Cross-cutting concerns spanning frontend and backend systems",
     longDescription:
       "Non-functional requirements that apply across the entire stack, including end-to-end performance budgets, security practices, logging and monitoring, CI/CD pipelines, and development workflows.",
     icon: "Share2",

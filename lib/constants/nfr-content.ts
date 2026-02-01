@@ -6,1080 +6,2079 @@ import type { NFRSection } from "@/types/nfr";
 
 // Content indexed by NFR ID for reliable lookup
 const NFR_CONTENT_BY_ID: Record<number, NFRSection> = {
+  //   1: {
+  //     overview: `### Explain Like I'm 10
+
+  // Imagine opening a book.
+
+  // -   If the first page opens instantly → you're happy 🙂
+  // -   If you stare at a blank page for 5 seconds → you close the book 😠
+
+  // A website works the same way.
+
+  // **Page Load Performance means how fast a website shows something useful
+  // after you open it.**
+
+  // Not only when everything finishes loading --- but: - When the first text
+  // appears - When the main image appears - When buttons become clickable
+
+  // Fast website = happy users\\
+  // Slow website = users leave
+
+  // ### 🍔 Simple Analogy
+
+  //   Real World                 Website
+  //   -------------------------- --------------------------
+  //   Menu arrives fast          Page shows content fast
+  //   Food arrives late          Images/scripts load late
+  //   You leave the restaurant   User closes website
+
+  // ### Engineering Definition
+
+  // Page Load Performance measures how quickly a page:
+
+  // 1.  Downloads resources (HTML, CSS, JS, images, fonts)
+  // 2.  Renders meaningful content
+  // 3.  Becomes interactive
+
+  // It is measured using browser performance metrics and **Core Web
+  // Vitals**.
+
+  // ### 📊 Core Metrics
+
+  //   Metric     What It Means                Target
+  //   ---------- ---------------------------- ----------
+  //   **TTFB**   Time for server to respond   \\< 800ms
+  //   **FCP**    First visible content        \\< 1.8s
+  //   **LCP**    Main content visible         \\< 2.5s
+  //   **CLS**    Layout stability             \\< 0.1
+  //   **TTI**    Page usable                  \\< 3.8s
+
+  // ### Advanced System Perspective
+
+  // Page load performance is a **full-stack concern**:
+
+  // DNS → CDN → Server → HTML → CSS → JS → Images → Rendering →
+  // Interactivity
+
+  // Any slow step increases user wait time.
+
+  // ### At Scale
+
+  // -   Millions of users amplify performance cost.
+  // -   Poor caching increases infrastructure spend.
+  // -   Slow rendering hurts SEO globally.
+  // -   Mobile networks magnify delays.
+
+  // Performance becomes a **business reliability problem**, not just
+  // frontend tuning.
+
+  // ### Why It Matters
+
+  // ### 👤 User Experience
+
+  // -   Users expect instant feedback.
+  // -   Slow pages increase frustration.
+  // -   Mobile users are especially sensitive.
+
+  // \\~50% of users abandon a site if it loads slower than 3 seconds.
+
+  // ### 💰 Business Impact
+
+  // -   Faster sites convert better.
+  // -   Google ranks faster pages higher.
+  // -   Slow pages reduce retention and revenue.
+
+  // ### 🧑‍💻 Engineering Impact
+
+  // -   Forces clean architecture.
+  // -   Prevents bundle bloat.
+  // -   Improves scalability and reliability.`,
+  //     problem: `Symptoms - Page loads in 5 seconds - Images appear late - Buttons
+
+  // ### Root Causes
+
+  // 1. **Large JavaScript Bundles**
+
+  // -   Heavy frameworks
+  // -   No tree-shaking
+  // -   No lazy loading
+  // -   Duplicate dependencies
+
+  // Impact: Rendering blocked until JS finishes.
+
+  // 2. **Unoptimized Images**
+
+  // -   Large image sizes
+  // -   No compression
+  // -   No responsive sizing
+  // -   No lazy loading
+
+  // Impact: Slow network, delayed LCP.
+
+  // 3. **Render Blocking Resources**
+
+  // -   CSS blocking rendering
+  // -   Fonts blocking paint
+  // -   Analytics blocking main thread
+
+  // Impact: Blank screen delay.
+
+  // 4. **Slow Server Response**
+
+  // -   No CDN
+  // -   Cold starts
+  // -   Heavy backend logic
+  // -   Missing caching
+
+  // Impact: Slow TTFB.
+
+  // 5. **Complex DOM & Layout**
+
+  // -   Deep nesting
+  // -   Heavy CSS selectors
+  // -   Expensive reflows
+
+  // Impact: Slow rendering and interactivity.
+
+  // ### Common Mistakes
+
+  // - ❌ Optimizing only Lighthouse score
+  // - ❌ Ignoring mobile users
+  // - ❌ Giant JS bundles
+  // - ❌ Loading everything upfront
+  // - ❌ Missing cache headers
+  // - ❌ Too many third-party SDKs
+  // - ❌ No real-user monitoring`,
+  //     solutions: `### Solution 1: Code Splitting
+
+  // Load features only when needed.
+
+  // Benefits: - Smaller initial bundle - Faster FCP & LCP
+
+  // Tradeoff: - More network requests
+
+  // ### Solution 2: Image Optimization
+
+  // -   WebP / AVIF formats
+  // -   Responsive sizes
+  // -   Lazy loading
+  // -   CDN optimization
+
+  // ### Solution 3: Resource Prioritization
+
+  // -   Preload fonts
+  // -   Inline critical CSS
+  // -   Defer analytics
+  // -   Prefetch routes
+
+  // ### Solution 4: Caching Strategy
+
+  // -   Browser caching
+  // -   CDN caching
+  // -   API caching
+  // -   Service Worker caching
+
+  // ### Solution 5: Rendering Strategy
+
+  //   Strategy    When
+  //   ----------- ----------------
+  //   SSR         SEO critical
+  //   SSG         Static content
+  //   Streaming   Large pages
+  //   CSR         Dashboards`,
+  //     examples: `### Real-World Case Study: Implementation
+
+  // ### 🛒 E-Commerce Product Page
+
+  // **Symptoms** - Page loads in 5 seconds - Images appear late - Buttons
+  // lag - Mobile bounce rate high
+
+  // **Root Causes** - Images are 3MB each - JS bundle is 1.2MB - No CDN -
+  // Analytics loaded synchronously
+
+  // **Business Impact** - Lost sales - Poor SEO ranking - User complaints
+
+  // ### Performance Metrics
+
+  // ### 🔧 Tools
+
+  // -   Lighthouse
+  // -   WebPageTest
+  // -   PageSpeed Insights
+  // -   Chrome DevTools
+
+  // ### 📊 Metrics to Track
+
+  //   Metric         Insight
+  //   -------------- ------------------
+  //   TTFB           Server latency
+  //   FCP            First paint
+  //   LCP            Main content
+  //   CLS            Layout stability
+  //   TTI            Usability
+  //   Bundle Size    Payload
+  //   Image Weight   Media
+
+  // ### Interview Framing
+
+  // Strong answer structure: 1. Measure baseline metrics 2. Reduce JS
+  // payload 3. Optimize images 4. Improve caching 5. Choose rendering wisely
+  // 6. Monitor continuously
+
+  // ### Tradeoff Analysis
+
+  // Optimization   Tradeoff
+  //   -------------- -----------------
+  //   Caching        Stale data
+  //   SSR            Infra cost
+  //   Compression    Quality loss
+  //   Prefetch       Bandwidth waste
+
+  // ### Self-Assessment Quiz
+
+  // ### Q1
+
+  // Which metric best reflects when the main content becomes visible? A.
+  // FCP\\
+  // B. TTFB\\
+  // C. LCP\\
+  // D. CLS\\
+  // Answer: C
+
+  // ### Q2
+
+  // Which optimization most directly reduces JavaScript execution blocking?
+  // A. Image compression\\
+  // B. Code splitting\\
+  // C. CDN caching\\
+  // D. Prefetching\\
+  // Answer: B
+
+  // ### Q3
+
+  // Why can aggressive caching be risky? A. Slower performance\\
+  // B. Higher CPU usage\\
+  // C. Stale content\\
+  // D. Increased bundle size\\
+  // Answer: C
+
+  // ### Q4
+
+  // Which users are most impacted by slow page load? A. Desktop fiber users\\
+  // B. Mobile users on slow networks\\
+  // C. Internal users\\
+  // D. Cached visitors\\
+  // Answer: B
+
+  // ### Q5
+
+  // Which metric reflects layout stability? A. CLS\\
+  // B. FCP\\
+  // C. LCP\\
+  // D. TTI\\
+  // Answer: A`,
+  //     references: `### External Resources
+  // -   [Vitals](https://web.dev/vitals/)
+  // -   [Performance](https://developer.chrome.com/docs/lighthouse/performance/)
+  // -   [Optimizing](https://nextjs.org/docs/app/building-your-application/optimizing)
+
+  // ### Tools
+  // -   [pagespeed.web.dev](https://pagespeed.web.dev/)
+  // -   [webpagetest.org](https://www.webpagetest.org/)
+  // -   [Lighthouse](https://github.com/GoogleChrome/lighthouse)
+
+  // ### Related NFRs
+
+  // -   Rendering Strategy
+  // -   Network Efficiency
+  // -   Accessibility
+  // -   Observability
+  // -   Performance Budgets`,
+  //   },
   1: {
-    overview: `### Explain Like I'm 10
+    overview: `
 
-Imagine opening a book.
+## 1. What is Page Load Performance?
 
--   If the first page opens instantly → you're happy 🙂
--   If you stare at a blank page for 5 seconds → you close the book 😠
+**Page Load Performance = how fast a user can see and interact with your website.**
 
-A website works the same way.
+It is not just about load time. It includes:
 
-**Page Load Performance means how fast a website shows something useful
-after you open it.**
+- How fast content appears
+- How fast the page becomes usable
+- How smooth the experience feels
+- How responsive interactions are
 
-Not only when everything finishes loading --- but: - When the first text
-appears - When the main image appears - When buttons become clickable
+Performance is about **perceived speed**, not just actual speed.
 
-Fast website = happy users\\
-Slow website = users leave
+A page that loads in 3 seconds but feels instant is better than one that loads in 1 second but feels laggy.
 
-### 🍔 Simple Analogy
+---
 
-  Real World                 Website
-  -------------------------- --------------------------
-  Menu arrives fast          Page shows content fast
-  Food arrives late          Images/scripts load late
-  You leave the restaurant   User closes website
+## 2. How a Browser Loads a Page (Critical Rendering Path)
 
-### Engineering Definition
+When a user visits a URL:
 
-Page Load Performance measures how quickly a page:
+DNS lookup
+↓
+TCP connection
+↓
+HTML download
+↓
+Parse HTML → DOM
+↓
+Download CSS/JS/images
+↓
+Build CSSOM
+↓
+Render tree
+↓
+Layout
+↓
+Paint
 
-1.  Downloads resources (HTML, CSS, JS, images, fonts)
-2.  Renders meaningful content
-3.  Becomes interactive
 
-It is measured using browser performance metrics and **Core Web
-Vitals**.
+Key rules:
 
-### 📊 Core Metrics
+- HTML is parsed top → bottom
+- CSS blocks rendering
+- JS blocks parsing (unless async/defer)
+- Large assets delay paint
 
-  Metric     What It Means                Target
-  ---------- ---------------------------- ----------
-  **TTFB**   Time for server to respond   \\< 800ms
-  **FCP**    First visible content        \\< 1.8s
-  **LCP**    Main content visible         \\< 2.5s
-  **CLS**    Layout stability             \\< 0.1
-  **TTI**    Page usable                  \\< 3.8s
+### Blocking example (bad)
 
-### Advanced System Perspective
+html
+<head>
+  <script src="app.js"></script>
+</head>
 
-Page load performance is a **full-stack concern**:
+Browser stops parsing HTML to execute JS.
 
-DNS → CDN → Server → HTML → CSS → JS → Images → Rendering →
-Interactivity
+### Non-blocking version
 
-Any slow step increases user wait time.
+html
+<script src="app.js" defer></script>
 
-### At Scale
 
--   Millions of users amplify performance cost.
--   Poor caching increases infrastructure spend.
--   Slow rendering hurts SEO globally.
--   Mobile networks magnify delays.
+Rendering continues while script downloads.
 
-Performance becomes a **business reliability problem**, not just
-frontend tuning.
+---
 
-### Why It Matters
+## 3. Key Performance Metrics
 
-### 👤 User Experience
+### Core Web Vitals
 
--   Users expect instant feedback.
--   Slow pages increase frustration.
--   Mobile users are especially sensitive.
+#### LCP — Largest Contentful Paint
 
-\\~50% of users abandon a site if it loads slower than 3 seconds.
+Time to show main content.
 
-### 💰 Business Impact
+Good: **< 2.5 seconds**
 
--   Faster sites convert better.
--   Google ranks faster pages higher.
--   Slow pages reduce retention and revenue.
+Example: hero image or main heading
 
-### 🧑‍💻 Engineering Impact
+---
 
--   Forces clean architecture.
--   Prevents bundle bloat.
--   Improves scalability and reliability.`,
-    problem: `Symptoms - Page loads in 5 seconds - Images appear late - Buttons
+#### FID / INP — Interaction latency
 
-### Root Causes
+How fast page reacts to user input.
 
-1. **Large JavaScript Bundles**
+Good: **< 200ms**
 
--   Heavy frameworks
--   No tree-shaking
--   No lazy loading
--   Duplicate dependencies
+Example: delay after button click
 
-Impact: Rendering blocked until JS finishes.
+---
 
-2. **Unoptimized Images**
+#### CLS — Cumulative Layout Shift
 
--   Large image sizes
--   No compression
--   No responsive sizing
--   No lazy loading
+Measures visual stability.
 
-Impact: Slow network, delayed LCP.
+Good: **< 0.1**
 
-3. **Render Blocking Resources**
+Bad:
 
--   CSS blocking rendering
--   Fonts blocking paint
--   Analytics blocking main thread
+html
+<img src="hero.jpg">
 
-Impact: Blank screen delay.
 
-4. **Slow Server Response**
+Good:
 
--   No CDN
--   Cold starts
--   Heavy backend logic
--   Missing caching
+html
+<img src="hero.jpg" width="800" height="400">
 
-Impact: Slow TTFB.
+---
 
-5. **Complex DOM & Layout**
+### Additional metrics
 
--   Deep nesting
--   Heavy CSS selectors
--   Expensive reflows
+- TTFB — Time to first byte
+- FCP — First contentful paint
+- TTI — Time to interactive
+- Speed Index
 
-Impact: Slow rendering and interactivity.
+---
 
-### Common Mistakes
+## 4. Common Performance Bottlenecks
 
-- ❌ Optimizing only Lighthouse score
-- ❌ Ignoring mobile users
-- ❌ Giant JS bundles
-- ❌ Loading everything upfront
-- ❌ Missing cache headers
-- ❌ Too many third-party SDKs
-- ❌ No real-user monitoring`,
-    solutions: `### Solution 1: Code Splitting
+1. Huge JavaScript bundles
+2. Unoptimized images
+3. Too many HTTP requests
+4. Render-blocking CSS
+5. Slow backend APIs
+6. Large fonts
+7. Layout thrashing
+8. Memory leaks
+9. DOM overgrowth
+10. Third-party scripts
 
-Load features only when needed.
+---
 
-Benefits: - Smaller initial bundle - Faster FCP & LCP
+## 5. Optimization Strategies (with code)
 
-Tradeoff: - More network requests
+### 5.1 Code Splitting
 
-### Solution 2: Image Optimization
+Load JavaScript only when needed.
 
--   WebP / AVIF formats
--   Responsive sizes
--   Lazy loading
--   CDN optimization
+React example:
 
-### Solution 3: Resource Prioritization
+js
+import React, { Suspense, lazy } from "react";
 
--   Preload fonts
--   Inline critical CSS
--   Defer analytics
--   Prefetch routes
+const Dashboard = lazy(() => import("./Dashboard"));
 
-### Solution 4: Caching Strategy
+function App() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <Dashboard />
+    </Suspense>
+  );
+}
 
--   Browser caching
--   CDN caching
--   API caching
--   Service Worker caching
 
-### Solution 5: Rendering Strategy
+Result:
 
-  Strategy    When
-  ----------- ----------------
-  SSR         SEO critical
-  SSG         Static content
-  Streaming   Large pages
-  CSR         Dashboards`,
-    examples: `### Real-World Case Study: Implementation
+- smaller initial bundle
+- faster first load
 
-### 🛒 E-Commerce Product Page
+---
 
-**Symptoms** - Page loads in 5 seconds - Images appear late - Buttons
-lag - Mobile bounce rate high
+### 5.2 Lazy Loading Images
 
-**Root Causes** - Images are 3MB each - JS bundle is 1.2MB - No CDN -
-Analytics loaded synchronously
+Basic:
 
-**Business Impact** - Lost sales - Poor SEO ranking - User complaints
+html
+<img src="photo.jpg" loading="lazy" />
 
-### Performance Metrics
 
-### 🔧 Tools
+Advanced:
 
--   Lighthouse
--   WebPageTest
--   PageSpeed Insights
--   Chrome DevTools
+js
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.src = entry.target.dataset.src;
+    }
+  });
+});
 
-### 📊 Metrics to Track
 
-  Metric         Insight
-  -------------- ------------------
-  TTFB           Server latency
-  FCP            First paint
-  LCP            Main content
-  CLS            Layout stability
-  TTI            Usability
-  Bundle Size    Payload
-  Image Weight   Media
+---
 
-### Interview Framing
+### 5.3 Minification & Compression
 
-Strong answer structure: 1. Measure baseline metrics 2. Reduce JS
-payload 3. Optimize images 4. Improve caching 5. Choose rendering wisely
-6. Monitor continuously
+Use:
 
-### Tradeoff Analysis
+- gzip
+- brotli
+- tree-shaking
 
-Optimization   Tradeoff
-  -------------- -----------------
-  Caching        Stale data
-  SSR            Infra cost
-  Compression    Quality loss
-  Prefetch       Bandwidth waste
+Webpack example:
 
-### Self-Assessment Quiz
+js
+optimization: {
+  minimize: true
+}
 
-### Q1
 
-Which metric best reflects when the main content becomes visible? A.
-FCP\\
-B. TTFB\\
-C. LCP\\
-D. CLS\\
-Answer: C
+---
 
-### Q2
+### 5.4 Async & Defer Scripts
 
-Which optimization most directly reduces JavaScript execution blocking?
-A. Image compression\\
-B. Code splitting\\
-C. CDN caching\\
-D. Prefetching\\
-Answer: B
+html
+<script src="analytics.js" async></script>
+<script src="app.js" defer></script>
 
-### Q3
+- async → executes independently
+- defer → executes after HTML parsed
 
-Why can aggressive caching be risky? A. Slower performance\\
-B. Higher CPU usage\\
-C. Stale content\\
-D. Increased bundle size\\
-Answer: C
+---
 
-### Q4
+### 5.5 Image Optimization
 
-Which users are most impacted by slow page load? A. Desktop fiber users\\
-B. Mobile users on slow networks\\
-C. Internal users\\
-D. Cached visitors\\
-Answer: B
+Use:
 
-### Q5
+- WebP / AVIF
+- compression
+- responsive images
 
-Which metric reflects layout stability? A. CLS\\
-B. FCP\\
-C. LCP\\
-D. TTI\\
-Answer: A`,
-    references: `### External Resources
--   [Vitals](https://web.dev/vitals/)
--   [Performance](https://developer.chrome.com/docs/lighthouse/performance/)
--   [Optimizing](https://nextjs.org/docs/app/building-your-application/optimizing)
+html
+<picture>
+  <source srcset="image.avif" type="image/avif">
+  <source srcset="image.webp" type="image/webp">
+  <img src="image.jpg" alt="">
+</picture>
 
-### Tools
--   [pagespeed.web.dev](https://pagespeed.web.dev/)
--   [webpagetest.org](https://www.webpagetest.org/)
--   [Lighthouse](https://github.com/GoogleChrome/lighthouse)
+---
 
-### Related NFRs
+### 5.6 Reduce Render Blocking CSS
 
--   Rendering Strategy
--   Network Efficiency
--   Accessibility
--   Observability
--   Performance Budgets`,
+Inline critical CSS:
+
+html
+<style>
+  body { font-family: system-ui; }
+</style>
+
+
+Load rest later:
+
+html
+<link rel="preload" href="styles.css" as="style" onload="this.rel='stylesheet'">
+
+
+---
+
+### 5.7 Use CDN
+
+Serve assets closer to users.
+
+User → CDN → nearest server
+
+Reduces global latency.
+
+---
+
+### 5.8 HTTP Caching
+
+http
+Cache-Control: public, max-age=31536000
+
+Browser reuses cached assets.
+
+---
+
+### 5.9 Virtualization for Large Lists
+
+React example:
+
+js
+import { FixedSizeList as List } from 'react-window';
+
+<List height={400} itemCount={10000} itemSize={35}>
+  {Row}
+</List>
+
+Only visible items are rendered.
+
+---
+
+### 5.10 Avoid Layout Thrashing
+
+Bad:
+js
+
+element.style.width = "100px";
+element.offsetHeight;
+element.style.width = "200px";
+
+Good: batch DOM reads and writes.
+
+---
+
+## 6. Advanced Techniques
+
+### Server-Side Rendering (SSR)
+
+Example: Next.js
+
+Pre-rendered HTML → faster first paint.
+
+---
+
+### Static Site Generation (SSG)
+
+Prebuilt pages → instant load.
+
+---
+
+### Streaming Rendering
+
+Send HTML chunks progressively.
+
+---
+
+### Service Workers
+
+Offline caching:
+
+js
+self.addEventListener("fetch", event => {
+  event.respondWith(caches.match(event.request));
+});
+
+---
+
+### Resource Hints
+
+html
+<link rel="preconnect" href="https://cdn.com">
+<link rel="prefetch" href="/next-page.js">
+
+---
+
+## 7. Tools to Measure Performance
+
+- Chrome Lighthouse
+- PageSpeed Insights
+- WebPageTest
+- Chrome DevTools Performance tab
+- GTmetrix
+- Real User Monitoring (RUM)
+
+---
+
+## 8. Real-World Architecture Example
+
+
+User
+↓
+CDN
+↓
+Edge cache
+↓
+SSR server
+↓
+API server
+↓
+Database
+
+
+Frontend optimizations:
+
+- code splitting
+- image CDN
+- HTTP/2
+- brotli compression
+- caching
+- lazy loading
+
+---
+
+## 9. Final Key Points (Interview Ready)
+
+### Core principles
+
+- Minimize critical rendering path
+- Reduce JavaScript bundle size
+- Optimize images
+- Avoid render blocking
+- Use caching aggressively
+- Measure before optimizing
+
+---
+
+### Golden rules
+
+1. Load less code
+2. Load code later
+3. Load code smarter
+4. Cache everything possible
+5. Optimize above-the-fold content first
+6. Avoid layout shifts
+7. Prioritize perceived performance
+8. Use SSR/SSG when possible
+9. Monitor real users, not just lab tests
+10. Performance is a feature
+
+---
+
+## Summary
+
+Page performance is a combination of:
+
+- network optimization
+- rendering optimization
+- asset optimization
+- architecture decisions
+- real-world monitoring
+
+Fast pages are engineered — not accidental.`,
+    problem: `Symptoms - Page loads in 6 seconds - Users abandon site - Poor SEO ranking`,
+    solutions: `### Solution 1: Code Splitting`,
+    examples: `### Real-World Case Study: Implementation`,
+    references: `### External Resources`,
   },
   2: {
-    overview: `### Explain Like I'm 10
+    overview: `
+## 1. What is Perceived Performance?
+
+**Perceived Performance = how fast a website *feels* to the user, not how fast it actually loads.**
+
+It is the psychological experience of speed. A page that takes 3 seconds to load but provides instant feedback feels faster than a page that loads in 1 second but shows nothing during that time.
+
+Key insight:
 
-Imagine you press the elevator button.
+- Users judge speed emotionally, not technically
+- Feedback creates the illusion of speed
+- Uncertainty feels slower than waiting with progress
 
-If the light turns ON immediately --- you feel confident the elevator is
-coming 🚀\\
-Even if it actually takes 20 seconds to arrive.
+---
 
-But if nothing happens when you press the button --- you feel confused
-😕 and may press again.
+## 2. Human Perception Thresholds
 
-A website works the same way.
-
-**Perceived performance means how fast a website *feels* to the user ---
-not how fast it actually loads.**
-
-Even if something takes time: - Showing a spinner - Showing
-placeholders - Showing progress - Reacting instantly to clicks
-
-...makes the site feel fast.
-
-Fast feeling = happy brain 😊\\
-Slow feeling = frustration 😤
-
-
-### 🍔 Simple Analogy
-
-  Real World                      Website
-  ------------------------------- ----------------------------
-  Elevator light turns on         Button shows loading state
-  Restaurant shows order number   Progress bar
-  Airport boarding display        Skeleton screen
-  No feedback                     Frozen UI feeling
-
-### Engineering Definition
-
-Perceived performance is the **psychological speed of a system** --- how
-responsive and fluid the interface feels regardless of actual network or
-computation time.
-
-It focuses on: - Immediate visual feedback - Progressive rendering -
-Skeleton screens - Optimistic UI updates - Smooth transitions - Avoiding
-blank screens and jank
-
-Even if real load time is 3 seconds: - A responsive UI can *feel* like
-0.5 seconds.
-
-Users judge: \\> "How fast did this feel?"\\
-Not: "How many milliseconds did this take?"
-
-
-### 📊 Key Perception Signals
-
-  Signal                   What User Feels
-  ------------------------ ------------------------
-  Instant click feedback   App is responsive
-  Skeleton UI              Something is happening
-  Progress indicator       Time is predictable
-  Smooth animation         Premium quality
-  No layout shifts         Stability
-  Optimistic updates       Instant speed illusion
-
-### Advanced System Perspective
-
-Perceived performance sits at the intersection of:
-
-    Human Psychology + Rendering Architecture + Interaction Design
-
-### Human Perception Thresholds
-
-  Delay         Human Perception
-  ------------- ---------------------
-  \\< 100ms      Feels instant
-  100--300ms    Slightly noticeable
-  300--1000ms   User notices delay
-  \\> 1s         Attention breaks
-  \\> 3s         Frustration starts
-
-Goal: \\> Always provide **feedback within 100--200ms**.
-
-### At Scale
-
--   Backend latency cannot always be eliminated immediately.
--   UX techniques can mask unavoidable delays.
--   Competitive products often win on *perceived speed* even when real
-    speed is similar.
--   Perceived performance reduces rage clicks, retries, and abandonment.
-
-Perceived performance becomes a **product quality differentiator**.
-
-### Why It Matters
-
-### 👤 User Experience
-
--   Users hate uncertainty.
--   Feedback builds trust.
--   Smooth interactions feel premium.
--   Predictability matters more than raw speed.
-
-### 💰 Business Impact
-
--   Higher engagement
--   Lower bounce rate
--   Higher conversion
--   Better brand perception
--   Reduced support complaints
-
-### 🧑‍💻 Engineering Impact
-
--   Encourages progressive rendering
--   Forces clear loading states
--   Improves interaction modeling
--   Reduces UI regressions`,
-    problem: `Problem - Feed loads in \\~2 seconds - Blank screen shown initially -
-
-Actual Load Time = 3.0 seconds
-    Perceived Load Time = 0.7 seconds
-    (using skeletons + transitions + instant feedback)
-
-Users emotionally experience the perceived time, not the actual time.
-
-### Common Mistakes
-
-- ❌ Confusing perceived speed with actual speed
-- ❌ Overusing spinners instead of skeletons
-- ❌ Fake progress bars
-- ❌ Ignoring accessibility feedback
-- ❌ Excessive animations causing jank
-- ❌ Masking real performance issues permanently`,
-    solutions: `### Solution 1: Skeleton Screens
-
-Show layout placeholders while content loads.
-
-Benefits: - Immediate feedback - Reduces anxiety - Prevents layout jumps
-
-Tradeoff: - Extra UI complexity - Design effort
-
-
-### Solution 2: Optimistic UI
-
-Update UI before server confirms success.
-
-Example: - Like button increments immediately
-
-Benefits: - Feels instant
-
-Risk: - Rollback required on failure
-
-
-### Solution 3: Progressive Rendering
-
-Render content in priority order: 1. Shell 2. Critical content 3.
-Secondary content 4. Media
-
-
-### Solution 4: Micro Animations
-
-Use animations for continuity: - Button press feedback - Page
-transitions - Hover states
-
-
-### Solution 5: Prefetching
-
-Load likely next screens silently in background.`,
-    examples: `### Real-World Case Study: Implementation
-
-### 📱 Social Feed Application
-
-**Problem** - Feed loads in \\~2 seconds - Blank screen shown initially -
-Users think app is broken
-
-**Fix** - Skeleton feed appears immediately - Shimmer animation - Images
-lazy load - Scroll enabled instantly
-
-**Result** - Bounce rate drops - Session duration increases - Perceived
-quality improves
-
-### Performance Metrics
-
-### 🔧 Tools
-
--   Real User Monitoring (RUM)
--   Session replay tools
--   Chrome UX Report
--   User surveys
-
-### 📊 UX Metrics
-
-  Metric                Meaning
-  --------------------- ------------------
-  First Input Delay     Responsiveness
-  Interaction latency   Perceived lag
-  Rage clicks           Frustration
-  Time to skeleton      Feedback speed
-  CLS                   Visual stability
-
-### Interview Framing
-
-Strong answer structure:
-
-1.  Define perceived vs actual performance
-2.  Explain human perception thresholds
-3.  Show skeletons + optimistic UI
-4.  Prevent layout shifts
-5.  Measure UX signals
-
-Bonus: - Mention rage clicks - Accessibility considerations - Tradeoffs
-
-### Tradeoff Analysis
-
-Optimization    Tradeoff
-  --------------- -----------------
-  Skeleton UI     Dev complexity
-  Optimistic UI   Rollback logic
-  Prefetching     Bandwidth usage
-  Animations      CPU/GPU cost
-  Placeholders    Design overhead
-
-### Self-Assessment Quiz
-
-### Q1
-
-What does perceived performance measure? A. Server speed\\
-B. User psychology\\
-C. Bundle size\\
-D. Network latency\\
-Answer: B
-
-### Q2
-
-Which improves perceived speed the most? A. Skeleton screens\\
-B. Bigger servers\\
-C. Compression\\
-D. DNS caching\\
-Answer: A
-
-### Q3
-
-Why is optimistic UI risky? A. Slower UX\\
-B. Data inconsistency\\
-C. Higher cost\\
-D. SEO loss\\
-Answer: B
-
-### Q4
-
-What hurts perceived performance most? A. Animations\\
-B. Blank screens\\
-C. Prefetch\\
-D. CDN\\
-Answer: B
-
-### Q5
-
-Which metric signals frustration? A. CLS\\
-B. Rage clicks\\
-C. LCP\\
-D. TTFB\\
-Answer: B`,
-    references: `### External Resources
-
--   [User Centric Performance Metrics](https://web.dev/user-centric-performance-metrics/)
--   [Skeleton Screens](https://uxdesign.cc/skeleton-screens)
--   [Web Vitals](https://developer.chrome.com/docs/web-vitals/)
-
-### Related NFRs
-
--   Page Load Performance
--   Rendering Strategy
--   Client & Edge Caching
--   Device Responsiveness
--   Frontend Observability`,
+The human brain processes time differently based on feedback:
+
+| Delay | Perception |
+|-------|------------|
+| < 100ms | Feels instant |
+| 100-300ms | Slightly noticeable |
+| 300-1000ms | User notices delay |
+| > 1 second | Attention breaks |
+| > 3 seconds | Frustration begins |
+
+Golden rule: **Always provide feedback within 100-200ms.**
+
+---
+
+## 3. Key Techniques for Perceived Performance
+
+### 3.1 Skeleton Screens
+
+Show placeholder UI that mimics the final layout.
+
+\`\`\`tsx
+function SkeletonCard() {
+  return (
+    <div className="card">
+      <div className="skeleton skeleton-image" />
+      <div className="skeleton skeleton-title" />
+      <div className="skeleton skeleton-text" />
+    </div>
+  );
+}
+
+function Feed({ isLoading, posts }) {
+  if (isLoading) {
+    return Array(5).fill(0).map((_, i) => <SkeletonCard key={i} />);
+  }
+  return posts.map(post => <PostCard key={post.id} post={post} />);
+}
+\`\`\`
+
+CSS for skeleton animation:
+
+\`\`\`css
+.skeleton {
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+}
+
+@keyframes shimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+\`\`\`
+
+---
+
+### 3.2 Optimistic UI Updates
+
+Update the UI immediately before server confirmation.
+
+\`\`\`tsx
+function LikeButton({ postId, initialLikes }) {
+  const [likes, setLikes] = useState(initialLikes);
+  const [isLiked, setIsLiked] = useState(false);
+
+  async function handleLike() {
+    // Optimistic update
+    setLikes(prev => prev + 1);
+    setIsLiked(true);
+
+    try {
+      await api.likePost(postId);
+    } catch (error) {
+      // Rollback on failure
+      setLikes(prev => prev - 1);
+      setIsLiked(false);
+      toast.error('Failed to like post');
+    }
+  }
+
+  return (
+    <button onClick={handleLike} disabled={isLiked}>
+      {likes} Likes
+    </button>
+  );
+}
+\`\`\`
+
+---
+
+### 3.3 Progressive Loading
+
+Load content in priority order:
+
+\`\`\`tsx
+function Dashboard() {
+  return (
+    <>
+      {/* Critical: Load immediately */}
+      <Header />
+      <Navigation />
+
+      {/* High priority: Load early */}
+      <Suspense fallback={<SkeletonMainContent />}>
+        <MainContent />
+      </Suspense>
+
+      {/* Low priority: Load last */}
+      <Suspense fallback={<SkeletonSidebar />}>
+        <Sidebar />
+      </Suspense>
+
+      {/* Deferred: Load when idle */}
+      <Suspense fallback={null}>
+        <Recommendations />
+      </Suspense>
+    </>
+  );
+}
+\`\`\`
+
+---
+
+### 3.4 Instant Feedback on Interactions
+
+Every click should produce immediate visual feedback:
+
+\`\`\`css
+button {
+  transition: transform 0.1s ease, background-color 0.1s ease;
+}
+
+button:active {
+  transform: scale(0.98);
+}
+
+button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+\`\`\`
+
+\`\`\`tsx
+function SubmitButton({ isLoading, children }) {
+  return (
+    <button disabled={isLoading}>
+      {isLoading ? (
+        <>
+          <Spinner size="small" />
+          <span>Submitting...</span>
+        </>
+      ) : children}
+    </button>
+  );
+}
+\`\`\`
+
+---
+
+### 3.5 Progress Indicators
+
+Show progress for long operations:
+
+\`\`\`tsx
+function FileUpload() {
+  const [progress, setProgress] = useState(0);
+
+  async function handleUpload(file) {
+    await uploadFile(file, {
+      onProgress: (percent) => setProgress(percent)
+    });
+  }
+
+  return (
+    <div>
+      <input type="file" onChange={e => handleUpload(e.target.files[0])} />
+      {progress > 0 && (
+        <div className="progress-bar">
+          <div
+            className="progress-fill"
+            style={{ width: \`\${progress}%\` }}
+          />
+          <span>{progress}%</span>
+        </div>
+      )}
+    </div>
+  );
+}
+\`\`\`
+
+---
+
+## 4. Avoiding Common Mistakes
+
+### Mistake 1: Blank screens during loading
+
+Bad:
+\`\`\`tsx
+function Page() {
+  const { data, isLoading } = useQuery('data');
+  if (isLoading) return null; // Blank screen!
+  return <Content data={data} />;
+}
+\`\`\`
+
+Good:
+\`\`\`tsx
+function Page() {
+  const { data, isLoading } = useQuery('data');
+  if (isLoading) return <PageSkeleton />;
+  return <Content data={data} />;
+}
+\`\`\`
+
+---
+
+### Mistake 2: Layout shifts (CLS)
+
+Bad:
+\`\`\`html
+<img src="hero.jpg" />
+\`\`\`
+
+Good:
+\`\`\`html
+<img src="hero.jpg" width="800" height="400" />
+\`\`\`
+
+Or with CSS:
+\`\`\`css
+.image-container {
+  aspect-ratio: 16 / 9;
+}
+\`\`\`
+
+---
+
+### Mistake 3: Overusing spinners
+
+Spinners are better than nothing, but skeletons are better than spinners.
+
+Spinners: No indication of what's loading
+Skeletons: Shows the shape of incoming content
+
+---
+
+### Mistake 4: No feedback on button clicks
+
+\`\`\`tsx
+// Bad: No loading state
+<button onClick={submit}>Submit</button>
+
+// Good: Shows loading state
+<button onClick={submit} disabled={isSubmitting}>
+  {isSubmitting ? 'Submitting...' : 'Submit'}
+</button>
+\`\`\`
+
+---
+
+## 5. Prefetching and Preloading
+
+### Link Prefetching
+
+\`\`\`tsx
+// Next.js automatic prefetching
+<Link href="/dashboard" prefetch={true}>
+  Dashboard
+</Link>
+\`\`\`
+
+### Manual Prefetching
+
+\`\`\`tsx
+function ProductCard({ product }) {
+  const queryClient = useQueryClient();
+
+  function handleMouseEnter() {
+    // Prefetch product details on hover
+    queryClient.prefetchQuery(
+      ['product', product.id],
+      () => fetchProduct(product.id)
+    );
+  }
+
+  return (
+    <Link
+      href={\`/products/\${product.id}\`}
+      onMouseEnter={handleMouseEnter}
+    >
+      {product.name}
+    </Link>
+  );
+}
+\`\`\`
+
+### Resource Hints
+
+\`\`\`html
+<head>
+  <link rel="preconnect" href="https://api.example.com" />
+  <link rel="prefetch" href="/next-page.js" />
+  <link rel="preload" href="/critical-font.woff2" as="font" crossorigin />
+</head>
+\`\`\`
+
+---
+
+## 6. Smooth Animations and Transitions
+
+### Page Transitions
+
+\`\`\`tsx
+import { motion, AnimatePresence } from 'framer-motion';
+
+function App() {
+  return (
+    <AnimatePresence mode="wait">
+      <motion.div
+        key={router.pathname}
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        exit={{ opacity: 0, y: -20 }}
+        transition={{ duration: 0.2 }}
+      >
+        <Component {...pageProps} />
+      </motion.div>
+    </AnimatePresence>
+  );
+}
+\`\`\`
+
+### Content Loading Animations
+
+\`\`\`tsx
+function FadeIn({ children, delay = 0 }) {
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 10 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ delay, duration: 0.3 }}
+    >
+      {children}
+    </motion.div>
+  );
+}
+
+function PostList({ posts }) {
+  return posts.map((post, index) => (
+    <FadeIn key={post.id} delay={index * 0.05}>
+      <PostCard post={post} />
+    </FadeIn>
+  ));
+}
+\`\`\`
+
+---
+
+## 7. Measuring Perceived Performance
+
+### Key Metrics
+
+| Metric | What It Measures |
+|--------|------------------|
+| First Input Delay (FID) | Responsiveness to first interaction |
+| Interaction to Next Paint (INP) | Ongoing responsiveness |
+| Time to First Byte (TTFB) | Server response time |
+| First Contentful Paint (FCP) | First visual feedback |
+| Cumulative Layout Shift (CLS) | Visual stability |
+| Rage Clicks | User frustration |
+
+### Measuring with JavaScript
+
+\`\`\`javascript
+// Track time to interactive
+const startTime = performance.now();
+
+document.addEventListener('DOMContentLoaded', () => {
+  const tti = performance.now() - startTime;
+  analytics.track('time_to_interactive', { value: tti });
+});
+
+// Track rage clicks
+let clickCount = 0;
+let lastClickTime = 0;
+
+document.addEventListener('click', (e) => {
+  const now = Date.now();
+  if (now - lastClickTime < 500) {
+    clickCount++;
+    if (clickCount >= 3) {
+      analytics.track('rage_click', {
+        element: e.target.tagName,
+        path: window.location.pathname
+      });
+    }
+  } else {
+    clickCount = 1;
+  }
+  lastClickTime = now;
+});
+\`\`\`
+
+---
+
+## 8. Tools for Perceived Performance
+
+- **Chrome DevTools Performance tab** - Record and analyze interactions
+- **Lighthouse** - Audit performance metrics
+- **Web Vitals Extension** - Real-time Core Web Vitals
+- **Session Replay Tools** - Hotjar, FullStory, LogRocket
+- **Real User Monitoring** - Track actual user experience
+
+---
+
+## 9. Real-World Architecture Example
+
+\`\`\`
+User clicks link
+       ↓
+Instant visual feedback (button state change)
+       ↓
+Show skeleton/loading state
+       ↓
+Prefetched data available? → Show immediately
+       ↓ No
+Fetch data from cache/network
+       ↓
+Progressive rendering (header → content → sidebar)
+       ↓
+Animate content in
+       ↓
+Full page ready
+\`\`\`
+
+---
+
+## 10. Key Points
+
+### Core Principles
+
+1. Always provide feedback within 100ms
+2. Use skeletons instead of spinners when possible
+3. Implement optimistic updates for user actions
+4. Prefetch likely next pages
+5. Avoid layout shifts with proper sizing
+6. Animate transitions smoothly
+7. Show progress for long operations
+
+### Tradeoffs
+
+| Technique | Benefit | Cost |
+|-----------|---------|------|
+| Skeleton UI | Immediate feedback | Dev complexity |
+| Optimistic UI | Instant feel | Rollback logic |
+| Prefetching | Faster navigation | Bandwidth |
+| Animations | Polish | CPU/GPU usage |
+
+---
+
+## Summary
+
+Perceived performance is about managing user expectations through:
+
+- Immediate visual feedback
+- Progressive content loading
+- Optimistic updates
+- Smooth transitions
+- Stable layouts
+
+The goal is to make 3 seconds feel like 0.3 seconds through smart UX patterns.`,
+    problem: `Common issues: blank screens during load, no feedback on clicks, layout shifts, overuse of spinners instead of skeletons.`,
+    solutions: `Key solutions: skeleton screens, optimistic UI updates, progressive loading, instant feedback, prefetching.`,
+    examples: `Social feed using skeleton loading, like buttons with optimistic updates, page transitions with animations.`,
+    references: `- [User Centric Performance Metrics](https://web.dev/user-centric-performance-metrics/)
+- [Skeleton Screens](https://uxdesign.cc/skeleton-screens)
+- [Web Vitals](https://developer.chrome.com/docs/web-vitals/)`,
   },
   3: {
-    overview: `### Explain Like I'm 10
+    overview: `
+## 1. What is Rendering Strategy?
 
-Imagine you want to draw a picture for your friend.
+**Rendering Strategy = where and when your web page's HTML is generated and delivered to users.**
 
-You have different ways to do it:
+The rendering strategy you choose affects:
 
-1.  Draw the whole picture **before your friend arrives**.
-2.  Draw it **while your friend is watching**.
-3.  Send your friend instructions so **they draw it themselves**.
-4.  Show the picture piece by piece as you draw.
+- How fast users see content
+- How well search engines index your site
+- How much your servers cost
+- How complex your codebase becomes
 
-A website works the same way.
+---
 
-**Rendering strategy means where and when the website is built and shown
-to the user.**
+## 2. The Five Main Rendering Strategies
 
-If we choose the wrong way: - The page feels slow 😴 - Google can't
-understand it 🔍 - Servers become expensive 💸
+### 2.1 Client-Side Rendering (CSR)
 
-If we choose the right way: - Page loads fast ⚡ - SEO is strong 📈 -
-App scales well 🚀
+HTML is minimal. JavaScript builds the page in the browser.
 
+\`\`\`html
+<!DOCTYPE html>
+<html>
+  <body>
+    <div id="root"></div>
+    <script src="app.js"></script>
+  </body>
+</html>
+\`\`\`
 
-### 🎨 Simple Analogy
+\`\`\`tsx
+// React CSR
+function App() {
+  const [data, setData] = useState(null);
 
-  Real World                        Website
-  --------------------------------- ---------------------
-  Picture drawn before arrival      Static Generation
-  Artist draws live                 Server Rendering
-  Friend draws themselves           Client Rendering
-  Picture revealed piece-by-piece   Streaming Rendering
+  useEffect(() => {
+    fetch('/api/data').then(res => res.json()).then(setData);
+  }, []);
 
-### Engineering Definition
+  if (!data) return <Loading />;
+  return <Content data={data} />;
+}
 
-Rendering strategy determines: - **Where** UI is rendered (server,
-client, build-time) - **When** HTML is generated - **How** JavaScript
-hydrates and becomes interactive
+ReactDOM.render(<App />, document.getElementById('root'));
+\`\`\`
 
-Primary strategies:
+**Pros:** Rich interactivity, simple hosting
+**Cons:** Slow initial load, poor SEO, blank screen flash
 
-  Strategy        Where HTML Comes From
-  --------------- ---------------------------
-  CSR             Browser
-  SSR             Server
-  SSG             Build-time
-  ISR             Cached regeneration
-  Streaming SSR   Incremental server stream
+---
 
-Each has different tradeoffs in: - Performance - SEO - Scalability -
-Cost - Complexity
+### 2.2 Server-Side Rendering (SSR)
 
-### Advanced System Perspective
+HTML is generated on the server for each request.
 
-Rendering impacts the entire delivery pipeline:
+\`\`\`tsx
+// Next.js SSR
+export async function getServerSideProps(context) {
+  const data = await fetchData(context.params.id);
+  return { props: { data } };
+}
 
-    User → CDN → Server → HTML → Hydration → Interactivity → Caching
+export default function Page({ data }) {
+  return <Content data={data} />;
+}
+\`\`\`
 
-### Key System Concerns
+**Pros:** Good SEO, fresh data, fast first paint
+**Cons:** Server load, higher latency, harder to cache
 
--   **Time to First Byte**
--   **Hydration cost**
--   **Edge caching feasibility**
--   **Server CPU usage**
--   **SEO crawlability**
--   **Data freshness**
--   **Concurrency limits**
+---
 
-Wrong rendering strategy can: - Melt servers under load - Kill SEO -
-Slow mobile UX - Increase infra costs
+### 2.3 Static Site Generation (SSG)
 
-### Why It Matters
+HTML is generated at build time.
 
-### 👤 User Experience
+\`\`\`tsx
+// Next.js SSG
+export async function getStaticProps() {
+  const data = await fetchData();
+  return { props: { data } };
+}
 
--   Faster first paint
--   Faster interaction readiness
--   Reduced blank screens
+export async function getStaticPaths() {
+  const paths = await getAllPaths();
+  return { paths, fallback: false };
+}
 
-### 🔍 SEO
+export default function Page({ data }) {
+  return <Content data={data} />;
+}
+\`\`\`
 
--   Search bots read HTML better than JS-heavy pages
--   SSR / SSG improves indexing
+**Pros:** Fastest delivery, CDN cacheable, cheap hosting
+**Cons:** Stale data, long build times for large sites
 
-### 💰 Cost
+---
 
--   SSR increases compute
--   SSG reduces infra costs
--   Streaming balances tradeoffs
+### 2.4 Incremental Static Regeneration (ISR)
 
-### 🧑‍💻 Developer Productivity
+Static pages that revalidate in the background.
 
--   Simpler mental model
--   Easier caching
--   Predictable debugging`,
-    problem: `Requirements: - SEO product pages - Real-time pricing - Global users
+\`\`\`tsx
+// Next.js ISR
+export async function getStaticProps() {
+  const data = await fetchData();
+  return {
+    props: { data },
+    revalidate: 60 // Regenerate every 60 seconds
+  };
+}
+\`\`\`
+
+**Pros:** Fresh content, static speed, CDN cacheable
+**Cons:** Complexity, stale-while-revalidate semantics
+
+---
+
+### 2.5 Streaming SSR
+
+HTML is sent in chunks as it becomes available.
+
+\`\`\`tsx
+// Next.js App Router with Streaming
+import { Suspense } from 'react';
+
+export default function Page() {
+  return (
+    <div>
+      <Header /> {/* Sent immediately */}
+
+      <Suspense fallback={<ProductSkeleton />}>
+        <ProductDetails /> {/* Streamed when ready */}
+      </Suspense>
+
+      <Suspense fallback={<ReviewsSkeleton />}>
+        <Reviews /> {/* Streamed when ready */}
+      </Suspense>
+    </div>
+  );
+}
+
+async function ProductDetails() {
+  const product = await fetchProduct(); // Can be slow
+  return <Product data={product} />;
+}
+\`\`\`
+
+**Pros:** Fast TTFB, progressive loading, better UX
+**Cons:** Complexity, debugging difficulty
+
+---
+
+## 3. Choosing the Right Strategy
+
+| Page Type | Best Strategy | Why |
+|-----------|---------------|-----|
+| Marketing pages | SSG | Rarely changes, SEO critical |
+| Blog posts | SSG + ISR | Content updates occasionally |
+| E-commerce product | ISR | SEO + fresh prices |
+| User dashboard | CSR | No SEO needed, personalized |
+| Search results | SSR | Dynamic, needs SEO |
+| Social feed | CSR + Streaming | Real-time, personalized |
+
+---
+
+## 4. Hydration: The Hidden Cost
+
+After SSR/SSG delivers HTML, React must "hydrate" to make it interactive.
+
+\`\`\`
+Server HTML arrives
+       ↓
+Browser displays static HTML (fast!)
+       ↓
+JavaScript bundle downloads
+       ↓
+React hydrates (attaches event handlers)
+       ↓
+Page becomes interactive
+\`\`\`
+
+### The Problem
+
+Heavy JavaScript bundles delay interactivity:
+
+\`\`\`
+FCP: 0.8s (HTML arrives)
+TTI: 3.2s (Hydration complete)
+\`\`\`
+
+### Solutions
+
+**Partial Hydration:**
+\`\`\`tsx
+// Only hydrate interactive parts
+import dynamic from 'next/dynamic';
+
+const InteractiveWidget = dynamic(
+  () => import('./Widget'),
+  { ssr: false }
+);
+\`\`\`
+
+**Progressive Hydration:**
+\`\`\`tsx
+// Hydrate on interaction
+const Comments = dynamic(
+  () => import('./Comments'),
+  {
+    loading: () => <CommentsSkeleton />,
+    ssr: true
+  }
+);
+\`\`\`
+
+**React Server Components:**
+\`\`\`tsx
+// Server Component - zero client JS
+async function ProductInfo({ id }) {
+  const product = await db.product.find(id);
+  return (
+    <div>
+      <h1>{product.name}</h1>
+      <p>{product.description}</p>
+    </div>
+  );
+}
+
+// Client Component - interactive
+'use client';
+function AddToCart({ productId }) {
+  return <button onClick={() => addToCart(productId)}>Add</button>;
+}
+\`\`\`
+
+---
+
+## 5. Hybrid Rendering Patterns
+
+Modern apps mix strategies by route:
+
+\`\`\`tsx
+// next.config.js conceptual mapping
+const routeStrategies = {
+  '/': 'SSG',                    // Homepage
+  '/products': 'SSG',            // Product listing
+  '/products/[id]': 'ISR',       // Product detail
+  '/search': 'SSR',              // Search results
+  '/dashboard': 'CSR',           // User dashboard
+  '/checkout': 'SSR',            // Checkout flow
+};
+\`\`\`
+
+---
+
+## 6. Edge Rendering
+
+Run SSR at CDN edge locations for lower latency:
+
+\`\`\`tsx
+// Next.js Edge Runtime
+export const runtime = 'edge';
+
+export default function Page() {
+  return <div>Rendered at the edge!</div>;
+}
+\`\`\`
+
+\`\`\`
+Traditional SSR:
+User (Tokyo) → Origin Server (US) → Response
+Latency: 200ms
+
+Edge SSR:
+User (Tokyo) → Edge Server (Tokyo) → Response
+Latency: 20ms
+\`\`\`
+
+**Limitations:**
+- No Node.js APIs
+- Limited compute time
+- Smaller runtime
+
+---
+
+## 7. Caching Strategies by Rendering Type
+
+### SSG Caching
+\`\`\`
+Cache-Control: public, max-age=31536000, immutable
+\`\`\`
+
+### ISR Caching
+\`\`\`
+Cache-Control: public, s-maxage=60, stale-while-revalidate=3600
+\`\`\`
+
+### SSR Caching
+\`\`\`tsx
+// Cache SSR responses at CDN
+export async function getServerSideProps({ res }) {
+  res.setHeader(
+    'Cache-Control',
+    'public, s-maxage=10, stale-while-revalidate=59'
+  );
+  const data = await fetchData();
+  return { props: { data } };
+}
+\`\`\`
+
+---
+
+## 8. Performance Comparison
+
+| Metric | CSR | SSR | SSG | ISR | Streaming |
+|--------|-----|-----|-----|-----|-----------|
+| TTFB | Fast | Slow | Fast | Fast | Fast |
+| FCP | Slow | Fast | Fast | Fast | Fast |
+| TTI | Slow | Medium | Fast | Fast | Medium |
+| SEO | Poor | Good | Good | Good | Good |
+| Server Cost | Low | High | Low | Low | Medium |
+
+---
+
+## 9. Implementation Examples
+
+### Next.js App Router (Recommended)
+
+\`\`\`tsx
+// app/products/page.tsx - Static
+export default async function ProductsPage() {
+  const products = await getProducts();
+  return <ProductList products={products} />;
+}
+
+// app/products/[id]/page.tsx - Dynamic with caching
+export const revalidate = 3600; // ISR: revalidate hourly
+
+export default async function ProductPage({ params }) {
+  const product = await getProduct(params.id);
+  return <ProductDetail product={product} />;
+}
+
+// app/dashboard/page.tsx - Client only
+'use client';
+export default function DashboardPage() {
+  const { data } = useQuery('dashboard', fetchDashboard);
+  return <Dashboard data={data} />;
+}
+\`\`\`
+
+---
+
+## 10. Key Points
+
+### When to Use Each Strategy
+
+- **SSG**: Content rarely changes, SEO matters
+- **ISR**: Content changes periodically, SEO matters
+- **SSR**: Real-time data, personalized content, SEO matters
+- **CSR**: Dashboards, authenticated apps, no SEO need
+- **Streaming**: Complex pages with mixed data sources
 
 ### Common Mistakes
 
-- ❌ Using CSR for SEO pages
-- ❌ SSR everything blindly
-- ❌ Forgetting hydration cost
-- ❌ No caching layer
-- ❌ Overfetching data
-- ❌ Ignoring mobile CPU limits`,
-    solutions: `### Solution 1: Hybrid Rendering
+1. Using CSR for SEO-critical pages
+2. SSR for static content (wasteful)
+3. Ignoring hydration cost
+4. Not leveraging CDN caching
+5. Over-fetching data on the server
 
-Mix SSG + SSR + CSR based on route.
+---
 
+## Summary
 
-### Solution 2: Edge Rendering
+Rendering strategy is about choosing where and when to generate HTML:
 
-Use edge functions for personalization.
+- **SSG/ISR** for content sites with CDN caching
+- **SSR** for dynamic, personalized, SEO-critical pages
+- **CSR** for authenticated, interactive applications
+- **Streaming** for progressive, complex page loads
+- **Hybrid** approach for real-world applications
 
-
-### Solution 3: Streaming Layouts
-
-Render shell instantly, hydrate later.
-
-
-### Solution 4: Data Fetch Collocation
-
-Fetch data close to rendering boundary.
-
-
-### Solution 5: Cache Everything Possible
-
-Leverage CDN aggressively.`,
-    examples: `### Real-World Case Study: Implementation
-
-### 🛍️ Marketplace Website
-
-Requirements: - SEO product pages - Real-time pricing - Global users
-
-Solution: - SSG for product shell - ISR for updates - Client hydration
-for cart - CDN caching
-
-Result: - Fast LCP - Fresh prices - Low infra cost
-
-### Performance Metrics
-
-### 🔧 Tools
-
--   Lighthouse
--   WebPageTest
--   Next.js analytics
--   RUM
-
-### 📊 Metrics
-
-  Metric            Meaning
-  ----------------- ------------------
-  TTFB              Server latency
-  FCP               Initial render
-  LCP               Main content
-  Hydration time    Interactivity
-  CPU usage         Client cost
-  Cache hit ratio   Infra efficiency
-
-### Interview Framing
-
-Answer flow: 1. Clarify traffic + SEO 2. Choose rendering per route 3.
-Discuss caching 4. Mention hydration cost 5. Explain tradeoffs
-
-### Tradeoff Analysis
-
-Strategy    Strength        Weakness
-  ----------- --------------- ------------------
-  CSR         Interactivity   Slow first paint
-  SSR         SEO             Cost
-  SSG         Speed           Staleness
-  ISR         Balance         Complexity
-  Streaming   UX              Debugging
-
-### Self-Assessment Quiz
-
-### Q1
-
-Which rendering strategy gives fastest global delivery? A. CSR\\
-B. SSR\\
-C. SSG\\
-D. Streaming\\
-Answer: C
-
-### Q2
-
-Which hurts SSR at scale? A. SEO\\
-B. Server CPU\\
-C. Bundle size\\
-D. Images\\
-Answer: B
-
-### Q3
-
-Which enables partial hydration? A. CSR\\
-B. SSG\\
-C. Streaming SSR\\
-D. ISR\\
-Answer: C
-
-### Q4
-
-Best strategy for dashboards? A. CSR\\
-B. SSG\\
-C. SSR\\
-D. Streaming\\
-Answer: A
-
-### Q5
-
-Why hybrid rendering is useful? A. Simplicity\\
-B. Flexibility\\
-C. Cost\\
-D. Security\\
-Answer: B`,
-    references: `### External Resources
-
--   [Rendering](https://nextjs.org/docs/app/building-your-application/rendering)
--   [Rendering On The Web](https://web.dev/rendering-on-the-web/)
--   [Streaming Ssr](https://vercel.com/blog/streaming-ssr)
-
-### Related NFRs
-
--   Page Load Performance
--   Perceived Performance
--   Client Caching
--   SEO & Discoverability
--   Performance Budgets`,
+The best strategy is often a combination tailored to each route's needs.`,
+    problem: `Common issues: CSR for SEO pages, SSR overhead, hydration blocking TTI, no caching strategy.`,
+    solutions: `Key solutions: hybrid rendering per route, edge rendering, streaming SSR, React Server Components, proper caching headers.`,
+    examples: `E-commerce using ISR for products, SSG for categories, CSR for cart, streaming for search results.`,
+    references: `- [Next.js Rendering](https://nextjs.org/docs/app/building-your-application/rendering)
+- [Rendering on the Web](https://web.dev/rendering-on-the-web/)
+- [Streaming SSR](https://vercel.com/blog/streaming-ssr)`,
   },
   4: {
-    overview: `### Explain Like I'm 10
-
-Imagine you have a huge book with **10,000 pages** 📖.
-
-You don't open all pages at once.\\
-You only see the two pages in front of you.
-
-When you flip the page, the next pages appear and the old ones
-disappear.
-
-A website should work the same way.
-
-If a list has **10,000 items**, the browser should only show: - The
-items you can see on screen 👀 - A small buffer above and below
-
-This idea is called:
-
-> **Virtualization (or Windowing)**
-
-It keeps the website fast and smooth ⚡
-
-
-### 🧠 Simple Analogy
-
-  Real World                      Website
-  ------------------------------- --------------------------------
-  Only visible book pages exist   Only visible rows exist in DOM
-  Old pages disappear             Offscreen items removed
-  Turning page loads next pages   Scrolling loads next items
-  Book stays light                Browser stays fast
-
-### Engineering Definition
-
-Virtualization (also called windowing) is a rendering technique where: -
-Only a **subset of items currently visible** in the viewport are
-rendered. - Offscreen items are replaced with spacer elements that
-preserve scroll height.
-
-Instead of rendering:
-
-    10,000 DOM nodes
-
-We render:
-
-    ~30–100 DOM nodes
-
-regardless of dataset size.
-
-This drastically improves: - Rendering time - Memory usage - Scroll
-performance - Layout stability
-
-
-### 📦 What Actually Happens
-
-    Total Items: 10000
-    Visible Items: 20
-    Overscan Buffer: 10
-    Rendered DOM Nodes: ~30
-
-As user scrolls: - Items leaving viewport are unmounted - New items
-entering viewport are mounted
-
-### Advanced System Perspective
-
-Virtualization directly impacts:
-
-    CPU → Layout → Paint → Memory → Battery → UX
-
-### Key Constraints
-
--   Browser layout engine struggles with large DOM trees (\\>1500 nodes)
--   Memory grows linearly with rendered elements
--   Mobile devices suffer earlier
--   Scroll jank increases with heavy DOM
-
-### At Scale
-
--   Infinite feeds
--   Log viewers
--   Analytics tables
--   Chat history
--   IDE file trees
-
-Without virtualization: - Browser crashes - Tabs freeze - Mobile devices
-overheat 🔥
-
-Virtualization becomes a **stability and scalability requirement**, not
-just optimization.
-
-### Why It Matters
-
-### 👤 User Experience
-
--   Smooth scrolling
--   No freezing
--   Fast initial render
--   Stable layout
-
-### 💰 Business Impact
-
--   Supports massive datasets
--   Lower device resource usage
--   Higher engagement
--   Fewer crashes
-
-### 🧑‍💻 Engineering Impact
-
--   Forces predictable rendering
--   Improves memory discipline
--   Enables real-time feeds`,
-    problem: `Problem - 500k log rows - Browser freezes - Scroll unusable
-
-### Root Causes
-
-1. **Rendering Entire Lists**
-
--   Rendering thousands of DOM nodes
--   Heavy React reconciliation
-
-2. **Image Heavy Rows**
-
--   Images decode offscreen
--   Memory spikes
-
-3. **Variable Height Rows (unmanaged)**
-
--   Scroll jumps
--   Measurement cost
-
-4. **Expensive Row Components**
-
--   Complex charts
--   Heavy formatting
-
-5. **Missing Key Stability**
-
--   React remounts unnecessarily
-
-### Common Mistakes
-
-- ❌ Virtualizing small lists unnecessarily
-- ❌ Forgetting keyboard navigation
-- ❌ Breaking accessibility semantics
-- ❌ Incorrect height calculation
-- ❌ Too large overscan buffer
-- ❌ Virtualizing horizontally incorrectly
-- ❌ Not handling resize`,
-    solutions: `### Solution 1: Fixed Height Virtualization
-
-Best when rows have equal height.
-
-Libraries: - react-window - react-virtualized
-
-Benefits: - Fast math - Predictable scroll
-
-
-### Solution 2: Variable Height Virtualization
-
-Used when rows differ in height.
-
-Requires: - Measurement cache - Resize observers
-
-Tradeoff: - Complexity
-
-
-### Solution 3: Infinite Loading + Virtualization
-
-Combine pagination with windowing.
-
--   Load next chunk
--   Virtualize visible items
-
-
-### Solution 4: Row Memoization
-
-Prevent re-render storms.
-
-
-### Solution 5: Overscan Buffer Tuning
-
-Render small buffer to prevent blank gaps during fast scroll.`,
-    examples: `### Real-World Case Study: Implementation
-
-### 📊 Log Viewer Dashboard
-
-**Problem** - 500k log rows - Browser freezes - Scroll unusable
-
-**Fix** - Virtualized list with 40 visible rows - Row memoization -
-Deferred images
-
-**Result** - Constant memory usage - Smooth scroll - Instant filtering
-
-### Performance Metrics
-
-### 🔧 Tools
-
--   Chrome Performance tab
--   React Profiler
--   Memory snapshots
--   FPS meter
-
-### 📊 Metrics
-
-  Metric           Meaning
-  ---------------- -------------------
-  DOM Node Count   Rendering load
-  FPS              Scroll smoothness
-  Memory           Heap usage
-  Commit time      React cost
-  CPU              Battery drain
-
-### Interview Framing
-
-Answer flow: 1. Identify large dataset 2. Explain DOM cost 3. Introduce
-windowing 4. Discuss fixed vs variable height 5. Mention accessibility
-and tradeoffs
-
-### Tradeoff Analysis
-
-Benefit         Tradeoff
-  --------------- ------------------
-  Low memory      Complexity
-  Smooth scroll   Debugging
-  Fast render     Accessibility
-  Scalability     Measurement cost
-
-### Self-Assessment Quiz
-
-### Q1
-
-Why is virtualization used? A. SEO\\
-B. Reduce DOM size\\
-C. Security\\
-D. Animations\\
-Answer: B
-
-### Q2
-
-Which list type is easier to virtualize? A. Variable height\\
-B. Fixed height\\
-C. Infinite width\\
-D. Grid\\
-Answer: B
-
-### Q3
-
-What happens to offscreen items? A. Hidden with CSS\\
-B. Still rendered\\
-C. Unmounted\\
-D. Cached forever\\
-Answer: C
-
-### Q4
-
-What metric signals scroll jank? A. FPS\\
-B. CLS\\
-C. LCP\\
-D. TTFB\\
-Answer: A
-
-### Q5
-
-Biggest virtualization risk? A. SEO\\
-B. Accessibility\\
-C. Bandwidth\\
-D. Caching\\
-Answer: B`,
-    references: `### External Resources
-
--   [react-window.vercel.app](https://react-window.vercel.app/)
--   [React Virtualized](https://github.com/bvaughn/react-virtualized)
--   [Virtualize Long Lists](https://web.dev/virtualize-long-lists/)
-
-### Related NFRs
-
--   Page Load Performance
--   Perceived Performance
--   Rendering Strategy
--   Network Efficiency
--   Memory Management`,
+    overview: `
+## 1. What is Virtualization / Windowing?
+
+**Virtualization = rendering only the visible portion of a large list, not all items at once.**
+
+Instead of rendering 10,000 DOM nodes for a 10,000 item list, you render only the ~20-50 items visible in the viewport plus a small buffer.
+
+\`\`\`
+Without Virtualization:
+10,000 items → 10,000 DOM nodes → Browser freezes
+
+With Virtualization:
+10,000 items → ~30 DOM nodes → Smooth scrolling
+\`\`\`
+
+---
+
+## 2. How Virtualization Works
+
+### The Core Concept
+
+\`\`\`
+┌─────────────────────────────────┐
+│     Spacer (calculated height)  │  ← Not rendered, just empty space
+├─────────────────────────────────┤
+│     Item 45                     │  ← Overscan buffer
+│     Item 46                     │
+├─────────────────────────────────┤
+│     Item 47                     │  ← Visible in viewport
+│     Item 48                     │
+│     Item 49                     │
+│     Item 50                     │
+│     Item 51                     │
+├─────────────────────────────────┤
+│     Item 52                     │  ← Overscan buffer
+│     Item 53                     │
+├─────────────────────────────────┤
+│     Spacer (calculated height)  │  ← Not rendered, just empty space
+└─────────────────────────────────┘
+\`\`\`
+
+As the user scrolls:
+1. Calculate which items should be visible
+2. Unmount items leaving the viewport
+3. Mount items entering the viewport
+4. Adjust spacer heights to maintain scroll position
+
+---
+
+## 3. Fixed Height Virtualization
+
+When all items have the same height, calculations are simple:
+
+\`\`\`tsx
+import { FixedSizeList as List } from 'react-window';
+
+function VirtualizedList({ items }) {
+  const Row = ({ index, style }) => (
+    <div style={style} className="row">
+      {items[index].name}
+    </div>
+  );
+
+  return (
+    <List
+      height={400}          // Container height
+      itemCount={items.length}
+      itemSize={50}         // Each row is 50px
+      width="100%"
+    >
+      {Row}
+    </List>
+  );
+}
+\`\`\`
+
+### How It Calculates
+
+\`\`\`javascript
+// Given:
+const containerHeight = 400;
+const itemHeight = 50;
+const scrollTop = 2500;
+const totalItems = 10000;
+
+// Calculate visible range:
+const startIndex = Math.floor(scrollTop / itemHeight); // 50
+const visibleCount = Math.ceil(containerHeight / itemHeight); // 8
+const endIndex = startIndex + visibleCount; // 58
+
+// Only render items 50-58 (plus overscan buffer)
+\`\`\`
+
+---
+
+## 4. Variable Height Virtualization
+
+When items have different heights, you need measurement:
+
+\`\`\`tsx
+import { VariableSizeList as List } from 'react-window';
+
+function VariableList({ items }) {
+  const listRef = useRef();
+  const sizeMap = useRef({});
+
+  // Measure item heights
+  const setSize = useCallback((index, size) => {
+    sizeMap.current = { ...sizeMap.current, [index]: size };
+    listRef.current?.resetAfterIndex(index);
+  }, []);
+
+  const getSize = (index) => sizeMap.current[index] || 100;
+
+  const Row = ({ index, style }) => {
+    const rowRef = useRef();
+
+    useEffect(() => {
+      if (rowRef.current) {
+        setSize(index, rowRef.current.getBoundingClientRect().height);
+      }
+    }, [index]);
+
+    return (
+      <div style={style}>
+        <div ref={rowRef}>
+          {items[index].content}
+        </div>
+      </div>
+    );
+  };
+
+  return (
+    <List
+      ref={listRef}
+      height={400}
+      itemCount={items.length}
+      itemSize={getSize}
+      width="100%"
+    >
+      {Row}
+    </List>
+  );
+}
+\`\`\`
+
+---
+
+## 5. Virtualized Grids
+
+For two-dimensional data like spreadsheets:
+
+\`\`\`tsx
+import { FixedSizeGrid as Grid } from 'react-window';
+
+function VirtualizedGrid({ data, columns }) {
+  const Cell = ({ columnIndex, rowIndex, style }) => (
+    <div style={style} className="cell">
+      {data[rowIndex][columnIndex]}
+    </div>
+  );
+
+  return (
+    <Grid
+      columnCount={columns.length}
+      columnWidth={150}
+      height={400}
+      rowCount={data.length}
+      rowHeight={35}
+      width={800}
+    >
+      {Cell}
+    </Grid>
+  );
+}
+\`\`\`
+
+---
+
+## 6. Infinite Loading with Virtualization
+
+Combine virtualization with lazy loading:
+
+\`\`\`tsx
+import { FixedSizeList as List } from 'react-window';
+import InfiniteLoader from 'react-window-infinite-loader';
+
+function InfiniteList({ loadMoreItems, hasNextPage, items }) {
+  const itemCount = hasNextPage ? items.length + 1 : items.length;
+
+  const isItemLoaded = (index) => !hasNextPage || index < items.length;
+
+  const Row = ({ index, style }) => {
+    if (!isItemLoaded(index)) {
+      return <div style={style}>Loading...</div>;
+    }
+    return (
+      <div style={style}>
+        {items[index].name}
+      </div>
+    );
+  };
+
+  return (
+    <InfiniteLoader
+      isItemLoaded={isItemLoaded}
+      itemCount={itemCount}
+      loadMoreItems={loadMoreItems}
+    >
+      {({ onItemsRendered, ref }) => (
+        <List
+          ref={ref}
+          height={400}
+          itemCount={itemCount}
+          itemSize={50}
+          onItemsRendered={onItemsRendered}
+          width="100%"
+        >
+          {Row}
+        </List>
+      )}
+    </InfiniteLoader>
+  );
+}
+\`\`\`
+
+---
+
+## 7. Performance Optimizations
+
+### Memoize Row Components
+
+\`\`\`tsx
+const Row = memo(({ data, index, style }) => {
+  const item = data[index];
+  return (
+    <div style={style}>
+      <ItemContent item={item} />
+    </div>
+  );
+}, areEqual);
+
+// Use itemData prop to pass data efficiently
+<List itemData={items}>
+  {Row}
+</List>
+\`\`\`
+
+### Overscan for Smooth Scrolling
+
+\`\`\`tsx
+<List
+  height={400}
+  itemCount={10000}
+  itemSize={50}
+  overscanCount={5}  // Render 5 extra items above/below viewport
+>
+  {Row}
+</List>
+\`\`\`
+
+### Debounce Scroll Events
+
+\`\`\`tsx
+const handleScroll = useMemo(
+  () => debounce(({ scrollOffset }) => {
+    // Analytics or state updates
+  }, 100),
+  []
+);
+
+<List onScroll={handleScroll}>
+  {Row}
+</List>
+\`\`\`
+
+---
+
+## 8. Accessibility Considerations
+
+### Keyboard Navigation
+
+\`\`\`tsx
+function AccessibleList({ items }) {
+  const [focusedIndex, setFocusedIndex] = useState(0);
+  const listRef = useRef();
+
+  const handleKeyDown = (e) => {
+    switch (e.key) {
+      case 'ArrowDown':
+        e.preventDefault();
+        setFocusedIndex(prev => Math.min(prev + 1, items.length - 1));
+        listRef.current?.scrollToItem(focusedIndex + 1);
+        break;
+      case 'ArrowUp':
+        e.preventDefault();
+        setFocusedIndex(prev => Math.max(prev - 1, 0));
+        listRef.current?.scrollToItem(focusedIndex - 1);
+        break;
+    }
+  };
+
+  const Row = ({ index, style }) => (
+    <div
+      style={style}
+      role="option"
+      aria-selected={index === focusedIndex}
+      tabIndex={index === focusedIndex ? 0 : -1}
+    >
+      {items[index].name}
+    </div>
+  );
+
+  return (
+    <div role="listbox" onKeyDown={handleKeyDown}>
+      <List ref={listRef} {...props}>
+        {Row}
+      </List>
+    </div>
+  );
+}
+\`\`\`
+
+### Screen Reader Support
+
+\`\`\`tsx
+<div
+  role="listbox"
+  aria-label="Search results"
+  aria-rowcount={totalItems}
+>
+  <List>
+    {({ index, style }) => (
+      <div
+        style={style}
+        role="option"
+        aria-posinset={index + 1}
+        aria-setsize={totalItems}
+      >
+        {items[index].name}
+      </div>
+    )}
+  </List>
+</div>
+\`\`\`
+
+---
+
+## 9. Common Libraries
+
+| Library | Best For | Features |
+|---------|----------|----------|
+| react-window | Most cases | Lightweight, fast |
+| react-virtualized | Complex needs | Feature-rich |
+| @tanstack/virtual | Framework agnostic | Headless, flexible |
+| react-virtuoso | Variable height | Auto-measuring |
+
+### TanStack Virtual Example
+
+\`\`\`tsx
+import { useVirtualizer } from '@tanstack/react-virtual';
+
+function TanStackList({ items }) {
+  const parentRef = useRef();
+
+  const virtualizer = useVirtualizer({
+    count: items.length,
+    getScrollElement: () => parentRef.current,
+    estimateSize: () => 50,
+  });
+
+  return (
+    <div ref={parentRef} style={{ height: 400, overflow: 'auto' }}>
+      <div style={{ height: virtualizer.getTotalSize() }}>
+        {virtualizer.getVirtualItems().map((virtualRow) => (
+          <div
+            key={virtualRow.key}
+            style={{
+              position: 'absolute',
+              top: 0,
+              left: 0,
+              width: '100%',
+              height: virtualRow.size,
+              transform: \`translateY(\${virtualRow.start}px)\`,
+            }}
+          >
+            {items[virtualRow.index].name}
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+\`\`\`
+
+---
+
+## 10. When NOT to Virtualize
+
+Virtualization adds complexity. Skip it when:
+
+- List has fewer than 100 items
+- Items are very simple (text only)
+- Scrolling is infrequent
+- SEO is critical (virtualized content may not be indexed)
+
+---
+
+## 11. Debugging Virtualization
+
+### Check DOM Node Count
+
+\`\`\`javascript
+// In Chrome DevTools Console
+document.querySelectorAll('.list-item').length
+// Should be ~20-50, not thousands
+\`\`\`
+
+### Monitor Memory
+
+\`\`\`javascript
+// Watch for memory growth during scroll
+performance.memory.usedJSHeapSize
+\`\`\`
+
+### Profile Scroll Performance
+
+Use Chrome DevTools Performance tab:
+1. Start recording
+2. Scroll through the list
+3. Check for frame drops (target 60 FPS)
+
+---
+
+## 12. Key Points
+
+### Core Principles
+
+1. Only render visible items + small buffer
+2. Use fixed heights when possible
+3. Memoize row components
+4. Handle keyboard navigation
+5. Test on low-end devices
+
+### Tradeoffs
+
+| Benefit | Cost |
+|---------|------|
+| Constant memory | Implementation complexity |
+| Smooth scrolling | Debugging difficulty |
+| Large dataset support | Accessibility challenges |
+| Fast initial render | Measurement overhead (variable) |
+
+---
+
+## Summary
+
+Virtualization is essential for rendering large lists efficiently:
+
+- Render only visible items (~30 DOM nodes instead of thousands)
+- Use react-window or @tanstack/virtual for most cases
+- Memoize row components for performance
+- Handle accessibility with ARIA attributes
+- Skip virtualization for small lists (<100 items)
+
+The goal is constant memory and smooth scrolling regardless of data size.`,
+    problem: `Common issues: rendering thousands of DOM nodes, scroll jank, memory growth, browser crashes on large lists.`,
+    solutions: `Key solutions: fixed-size virtualization, variable-size with measurement, infinite loading, row memoization, proper overscan.`,
+    examples: `Log viewer with 500k rows, analytics tables, social feeds, chat history - all using virtualized rendering.`,
+    references: `- [react-window](https://react-window.vercel.app/)
+- [TanStack Virtual](https://tanstack.com/virtual)
+- [Virtualize Long Lists](https://web.dev/virtualize-long-lists/)`,
   },
   5: {
     overview: `### Explain Like I'm 10
@@ -18069,7 +19068,7 @@ export function getNFRContentById(id: number): NFRSection | null {
 const SLUG_TO_ID: Record<string, number> = {};
 
 // Initialize slug mapping from NFR_METADATA
-import { NFR_METADATA } from './nfr-data';
+import { NFR_METADATA } from "./nfr-data";
 for (const nfr of NFR_METADATA) {
   SLUG_TO_ID[nfr.slug] = nfr.id;
 }

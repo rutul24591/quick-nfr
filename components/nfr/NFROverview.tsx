@@ -5,6 +5,7 @@ import { Clock, BarChart3, Tag, Info, TrendingUp, AlertCircle } from "lucide-rea
 import { cn } from "@/lib/utils/cn";
 import { CategoryBadge, DifficultyBadge, TagBadge } from "@/components/ui/Badge";
 import { Card } from "@/components/ui/Card";
+import { CodeBlock } from "@/components/nfr/CodeBlock";
 import type { NFRContent } from "@/types/nfr";
 
 interface NFROverviewProps {
@@ -198,12 +199,13 @@ function EnhancedMarkdown({ content }: { content: string }) {
 }
 
 interface ParsedSection {
-  type: "heading" | "paragraph" | "list" | "table" | "highlight";
+  type: "heading" | "paragraph" | "list" | "table" | "highlight" | "code" | "divider" | "diagram";
   level?: number;
   content: string;
   items?: string[];
   rows?: string[][];
   headers?: string[];
+  language?: string;
 }
 
 function parseMarkdown(content: string): ParsedSection[] {
@@ -212,46 +214,23 @@ function parseMarkdown(content: string): ParsedSection[] {
   let currentList: string[] = [];
   let currentTable: { headers: string[]; rows: string[][] } | null = null;
   let inTable = false;
+  let inCodeBlock = false;
+  let codeBlockContent: string[] = [];
+  let codeBlockLanguage = "";
+  let inDiagram = false;
+  let diagramContent: string[] = [];
 
-  for (let i = 0; i < lines.length; i++) {
-    const line = lines[i];
-
-    // Headers
-    if (line.startsWith("### ")) {
-      if (currentList.length > 0) {
-        sections.push({ type: "list", content: "", items: currentList });
-        currentList = [];
-      }
-      sections.push({ type: "heading", level: 3, content: line.replace("### ", "") });
-      continue;
+  // Helper to flush current list
+  const flushList = () => {
+    if (currentList.length > 0) {
+      sections.push({ type: "list", content: "", items: [...currentList] });
+      currentList = [];
     }
-    if (line.startsWith("## ")) {
-      if (currentList.length > 0) {
-        sections.push({ type: "list", content: "", items: currentList });
-        currentList = [];
-      }
-      sections.push({ type: "heading", level: 2, content: line.replace("## ", "") });
-      continue;
-    }
+  };
 
-    // Tables
-    if (line.includes("|") && line.trim().startsWith("|")) {
-      if (!inTable) {
-        inTable = true;
-        currentTable = {
-          headers: line.split("|").map(c => c.trim()).filter(Boolean),
-          rows: [],
-        };
-        continue;
-      }
-      if (line.includes("---")) {
-        continue; // Skip separator line
-      }
-      if (currentTable) {
-        currentTable.rows.push(line.split("|").map(c => c.trim()).filter(Boolean));
-      }
-      continue;
-    } else if (inTable && currentTable) {
+  // Helper to flush current table
+  const flushTable = () => {
+    if (currentTable) {
       sections.push({
         type: "table",
         content: "",
@@ -261,19 +240,141 @@ function parseMarkdown(content: string): ParsedSection[] {
       currentTable = null;
       inTable = false;
     }
+  };
+
+  for (let i = 0; i < lines.length; i++) {
+    const line = lines[i];
+
+    // Code blocks with triple backticks
+    if (line.trim().startsWith("```")) {
+      if (!inCodeBlock) {
+        // Start of code block
+        flushList();
+        flushTable();
+        inCodeBlock = true;
+        codeBlockLanguage = line.trim().slice(3).trim() || "text";
+        codeBlockContent = [];
+      } else {
+        // End of code block
+        inCodeBlock = false;
+        sections.push({
+          type: "code",
+          content: codeBlockContent.join("\n"),
+          language: codeBlockLanguage,
+        });
+        codeBlockContent = [];
+        codeBlockLanguage = "";
+      }
+      continue;
+    }
+
+    if (inCodeBlock) {
+      codeBlockContent.push(line);
+      continue;
+    }
+
+    // Detect diagram patterns (lines with arrows ↓ → ← ↑ or box-like structures)
+    const isDiagramLine = /^[\s]*[↓↑←→│├┤┌┐└┘─┬┴┼|+\-]/.test(line) ||
+                          /^[\s]*[\w\s]+[↓↑←→][\s]*$/.test(line) ||
+                          /^[\s]*[↓↑←→][\s]*$/.test(line);
+
+    if (isDiagramLine && !inTable) {
+      if (!inDiagram) {
+        flushList();
+        flushTable();
+        inDiagram = true;
+        diagramContent = [];
+      }
+      diagramContent.push(line);
+      continue;
+    } else if (inDiagram && line.trim() !== "" && !isDiagramLine) {
+      // End of diagram
+      sections.push({
+        type: "diagram",
+        content: diagramContent.join("\n"),
+      });
+      diagramContent = [];
+      inDiagram = false;
+      // Continue processing this line
+    } else if (inDiagram && line.trim() === "") {
+      // End of diagram on empty line
+      sections.push({
+        type: "diagram",
+        content: diagramContent.join("\n"),
+      });
+      diagramContent = [];
+      inDiagram = false;
+      continue;
+    }
+
+    // Horizontal rules
+    if (line.trim() === "---" || line.trim() === "***" || line.trim() === "___") {
+      flushList();
+      flushTable();
+      sections.push({ type: "divider", content: "" });
+      continue;
+    }
+
+    // Headers
+    if (line.startsWith("#### ")) {
+      flushList();
+      flushTable();
+      sections.push({ type: "heading", level: 4, content: line.replace("#### ", "") });
+      continue;
+    }
+    if (line.startsWith("### ")) {
+      flushList();
+      flushTable();
+      sections.push({ type: "heading", level: 3, content: line.replace("### ", "") });
+      continue;
+    }
+    if (line.startsWith("## ")) {
+      flushList();
+      flushTable();
+      sections.push({ type: "heading", level: 2, content: line.replace("## ", "") });
+      continue;
+    }
+
+    // Tables
+    if (line.includes("|") && line.trim().startsWith("|")) {
+      flushList();
+      if (!inTable) {
+        inTable = true;
+        currentTable = {
+          headers: line.split("|").map(c => c.trim()).filter(Boolean),
+          rows: [],
+        };
+        continue;
+      }
+      if (line.includes("---") || line.includes(":-")) {
+        continue; // Skip separator line
+      }
+      if (currentTable) {
+        currentTable.rows.push(line.split("|").map(c => c.trim()).filter(Boolean));
+      }
+      continue;
+    } else if (inTable && currentTable) {
+      flushTable();
+    }
+
+    // Numbered list items
+    if (/^\d+\.\s/.test(line.trim())) {
+      currentList.push(line.replace(/^\s*\d+\.\s*/, ""));
+      continue;
+    }
 
     // List items
     if (line.trim().startsWith("- ")) {
       currentList.push(line.replace(/^\s*-\s*/, ""));
       continue;
     } else if (currentList.length > 0 && line.trim() === "") {
-      sections.push({ type: "list", content: "", items: currentList });
-      currentList = [];
+      flushList();
       continue;
     }
 
     // Paragraphs
     if (line.trim() && !line.startsWith("|")) {
+      flushList();
       // Check for bold highlights (stats, important info)
       if (line.includes("**") && (line.includes("%") || line.includes(":"))) {
         sections.push({ type: "highlight", content: line });
@@ -284,16 +385,13 @@ function parseMarkdown(content: string): ParsedSection[] {
   }
 
   // Handle remaining items
-  if (currentList.length > 0) {
-    sections.push({ type: "list", content: "", items: currentList });
+  flushList();
+  flushTable();
+  if (inDiagram && diagramContent.length > 0) {
+    sections.push({ type: "diagram", content: diagramContent.join("\n") });
   }
-  if (currentTable) {
-    sections.push({
-      type: "table",
-      content: "",
-      headers: currentTable.headers,
-      rows: currentTable.rows,
-    });
+  if (inCodeBlock && codeBlockContent.length > 0) {
+    sections.push({ type: "code", content: codeBlockContent.join("\n"), language: codeBlockLanguage });
   }
 
   return sections;

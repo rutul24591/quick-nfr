@@ -1,13 +1,14 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { ChevronLeft, ChevronRight, Clock, Bookmark } from "lucide-react";
-import { getNFRBySlug, getAllNFRMetadata, getRelatedNFRs } from "@/lib/nfr";
+import { getAllNFRMetadata } from "@/lib/nfr";
+import { getNFRBySlug as getNFRBySlugFromContent } from "@/lib/content";
 import { CATEGORIES } from "@/lib/constants/categories";
 import { Container } from "@/components/layout/Container";
 import { Breadcrumb } from "@/components/layout/Breadcrumb";
 import { Button } from "@/components/ui/Button";
 import { CategoryBadge, DifficultyBadge, ImportanceBadge } from "@/components/ui/Badge";
-import { NFRDetailTabs } from "@/components/nfr/NFRDetailTabs";
+import { MarkdownContent } from "@/components/nfr/MarkdownContent";
 import type { NFRCategory } from "@/types/nfr";
 
 interface NFRDetailPageProps {
@@ -26,8 +27,8 @@ export default async function NFRDetailPage({ params }: NFRDetailPageProps) {
     notFound();
   }
 
-  // Get NFR content
-  const nfr = getNFRBySlug(id);
+  // Get NFR content from markdown file
+  const nfr = getNFRBySlugFromContent(id);
 
   if (!nfr) {
     notFound();
@@ -46,9 +47,6 @@ export default async function NFRDetailPage({ params }: NFRDetailPageProps) {
     currentIndex < categoryNFRs.length - 1
       ? categoryNFRs[currentIndex + 1]
       : null;
-
-  // Get related NFRs
-  const relatedNFRs = getRelatedNFRs(nfr.id);
 
   const category = CATEGORIES[slug as NFRCategory];
 
@@ -106,8 +104,8 @@ export default async function NFRDetailPage({ params }: NFRDetailPageProps) {
           </div>
         </header>
 
-        {/* NFR Content Tabs */}
-        <NFRDetailTabs nfr={nfr} relatedNFRs={relatedNFRs} />
+        {/* NFR Markdown Content */}
+        <MarkdownContent content={nfr.rawContent} />
 
         {/* Prev/Next Navigation */}
         <nav className="mt-12 pt-8 border-t border-[var(--border)]">
@@ -180,7 +178,7 @@ export function generateStaticParams() {
 export async function generateMetadata({ params }: NFRDetailPageProps) {
   const resolvedParams = await params;
   const { id } = resolvedParams;
-  const nfr = getNFRBySlug(id);
+  const nfr = getNFRBySlugFromContent(id);
 
   if (!nfr) {
     return {

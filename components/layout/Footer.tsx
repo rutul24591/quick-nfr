@@ -53,7 +53,7 @@ export function Footer() {
                     href={social.href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="p-2 rounded-lg text-[var(--muted-foreground)] hover:text-[var(--foreground)] hover:bg-[var(--muted)] transition-colors"
+                    className="p-2 rounded-lg text-[var(--foreground)] opacity-60 hover:opacity-100 hover:bg-gray-100 dark:hover:bg-gray-800 transition-all"
                     aria-label={social.label}
                   >
                     <social.icon className="w-5 h-5" />
@@ -70,7 +70,7 @@ export function Footer() {
                   <li key={link.href}>
                     <Link
                       href={link.href}
-                      className="text-sm text-[var(--muted-foreground)] hover:text-[var(--foreground)] transition-colors"
+                      className="text-sm text-[var(--foreground)] opacity-60 hover:opacity-100 transition-all"
                     >
                       {link.label}
                     </Link>
@@ -87,7 +87,7 @@ export function Footer() {
                   <li key={link.href + link.label}>
                     <Link
                       href={link.href}
-                      className="text-sm text-[var(--muted-foreground)] hover:text-[var(--foreground)] transition-colors"
+                      className="text-sm text-[var(--foreground)] opacity-60 hover:opacity-100 transition-all"
                     >
                       {link.label}
                     </Link>
@@ -104,7 +104,7 @@ export function Footer() {
                   <li key={link.href}>
                     <Link
                       href={link.href}
-                      className="text-sm text-[var(--muted-foreground)] hover:text-[var(--foreground)] transition-colors"
+                      className="text-sm text-[var(--foreground)] opacity-60 hover:opacity-100 transition-all"
                     >
                       {link.label}
                     </Link>

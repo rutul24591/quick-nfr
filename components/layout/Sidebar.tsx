@@ -71,10 +71,10 @@ export function Sidebar({ isOpen = true, onClose, isMobile = false }: SidebarPro
               onClick={isMobile ? onClose : undefined}
               className={cn(
                 "flex items-center gap-3 px-3 py-2.5 rounded-lg",
-                "transition-colors duration-200",
+                "transition-all duration-200",
                 active
-                  ? `${category.bgColor} ${category.color} font-medium`
-                  : "text-[var(--muted-foreground)] hover:text-[var(--foreground)] hover:bg-[var(--muted)]"
+                  ? `${category.bgColor} ${category.color} font-medium shadow-sm`
+                  : "text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-50 dark:hover:bg-gray-800/50"
               )}
             >
               <Icon className="w-5 h-5 flex-shrink-0" />
@@ -92,13 +92,13 @@ export function Sidebar({ isOpen = true, onClose, isMobile = false }: SidebarPro
         </h2>
         <Link
           href="/"
-          className="flex items-center gap-3 px-3 py-2 rounded-lg text-[var(--muted-foreground)] hover:text-[var(--foreground)] hover:bg-[var(--muted)] transition-colors"
+          className="flex items-center gap-3 px-3 py-2 rounded-lg text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-all"
         >
           <span>Home</span>
         </Link>
         <Link
           href="/categories"
-          className="flex items-center gap-3 px-3 py-2 rounded-lg text-[var(--muted-foreground)] hover:text-[var(--foreground)] hover:bg-[var(--muted)] transition-colors"
+          className="flex items-center gap-3 px-3 py-2 rounded-lg text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-all"
         >
           <span>All Categories</span>
         </Link>
@@ -173,10 +173,10 @@ export function CategoryNavItem({ category, isActive, onClick }: CategoryNavItem
       onClick={onClick}
       className={cn(
         "flex items-center gap-3 px-3 py-2.5 rounded-lg",
-        "transition-colors duration-200",
+        "transition-all duration-200",
         isActive
-          ? `${category.bgColor} ${category.color} font-medium`
-          : "text-[var(--muted-foreground)] hover:text-[var(--foreground)] hover:bg-[var(--muted)]"
+          ? `${category.bgColor} ${category.color} font-medium shadow-sm`
+          : "text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-50 dark:hover:bg-gray-800/50"
       )}
     >
       <Icon className="w-5 h-5 flex-shrink-0" />

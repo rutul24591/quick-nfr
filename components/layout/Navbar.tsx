@@ -64,10 +64,10 @@ export function Navbar() {
                 href={link.href}
                 className={cn(
                   "relative px-3 py-2 text-sm font-medium rounded-lg",
-                  "transition-colors duration-200",
+                  "transition-all duration-200",
                   isActive(link.href)
                     ? "text-primary-600 dark:text-primary-400"
-                    : "text-[var(--muted-foreground)] hover:text-[var(--foreground)] hover:bg-[var(--muted)]"
+                    : "text-[var(--foreground)] opacity-70 hover:opacity-100 hover:bg-gray-100 dark:hover:bg-gray-800"
                 )}
               >
                 {link.label}
@@ -163,10 +163,10 @@ export function Navbar() {
                     onClick={closeMobileMenu}
                     className={cn(
                       "block px-3 py-2 text-base font-medium rounded-lg",
-                      "transition-colors duration-200",
+                      "transition-all duration-200",
                       isActive(link.href)
                         ? "text-primary-600 dark:text-primary-400 bg-primary-50 dark:bg-primary-950"
-                        : "text-[var(--muted-foreground)] hover:text-[var(--foreground)] hover:bg-[var(--muted)]"
+                        : "text-[var(--foreground)] opacity-70 hover:opacity-100 hover:bg-gray-100 dark:hover:bg-gray-800"
                     )}
                   >
                     {link.label}

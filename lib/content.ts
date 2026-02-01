@@ -3,12 +3,39 @@
 import fs from "fs";
 import path from "path";
 import matter from "gray-matter";
+import { NFR_METADATA } from "./constants/nfr-data";
 import type { NFRMetadata, NFRContent, NFRCategory } from "@/types/nfr";
 
 const CONTENT_DIR = path.join(process.cwd(), "content/nfr");
 
 // Cache for parsed content
 const contentCache = new Map<string, NFRContent>();
+
+/**
+ * Get NFR metadata by slug from the master metadata list
+ */
+function getMetadataBySlug(slug: string): NFRMetadata | null {
+  return NFR_METADATA.find((nfr) => nfr.slug === slug) || null;
+}
+
+/**
+ * Get NFR metadata by ID from the master metadata list
+ */
+function getMetadataById(id: number): NFRMetadata | null {
+  return NFR_METADATA.find((nfr) => nfr.id === id) || null;
+}
+
+/**
+ * Find the markdown file for a given NFR ID
+ */
+function findFileById(id: number): string | null {
+  const files = getNFRFiles();
+  const paddedId = id.toString().padStart(2, "0");
+
+  // Look for files starting with the ID number
+  const matchingFile = files.find((file) => file.startsWith(`${paddedId}-`));
+  return matchingFile || null;
+}
 
 /**
  * Get all NFR markdown files from the content directory
@@ -41,20 +68,27 @@ export function parseNFRFile(filename: string): NFRContent | null {
   const fileContent = fs.readFileSync(filePath, "utf-8");
   const { data, content } = matter(fileContent);
 
+  // Get the ID from frontmatter or filename
+  const nfrId = data.id || data.nfrNumber || parseInt(filename.split("-")[0], 10);
+
+  // Get metadata from the master list (which has complete info)
+  const metadata = getMetadataById(nfrId);
+
   // Parse sections from markdown content
   const sections = parseMarkdownSections(content);
 
+  // Merge frontmatter data with master metadata (master metadata takes precedence for missing fields)
   const nfrContent: NFRContent = {
-    id: data.id,
-    title: data.title,
-    slug: data.slug,
-    category: data.category as NFRCategory,
-    difficulty: data.difficulty,
-    tags: data.tags || [],
-    relatedNFRs: data.relatedNFRs || [],
-    readTime: data.readTime || 5,
-    importance: data.importance || "medium",
-    tldr: data.tldr || "",
+    id: nfrId,
+    title: data.title || metadata?.title || "Untitled",
+    slug: data.slug || metadata?.slug || filename.replace(/^\d+-/, "").replace(/-full(-v2)?\.md$/, ""),
+    category: (data.category || metadata?.category || "frontend") as NFRCategory,
+    difficulty: data.difficulty || metadata?.difficulty || "intermediate",
+    tags: data.tags || metadata?.tags || [],
+    relatedNFRs: data.relatedNFRs || metadata?.relatedNFRs || [],
+    readTime: data.readTime || metadata?.readTime || 5,
+    importance: data.importance || metadata?.importance || "medium",
+    tldr: data.tldr || metadata?.tldr || "",
     content: sections,
     rawContent: content,
   };
@@ -128,6 +162,13 @@ export function getAllNFRMetadata(): NFRMetadata[] {
  * Get NFR by ID
  */
 export function getNFRById(id: number): NFRContent | null {
+  // Find the file directly by ID
+  const filename = findFileById(id);
+  if (filename) {
+    return parseNFRFile(filename);
+  }
+
+  // Fallback: iterate through all files
   const files = getNFRFiles();
 
   for (const file of files) {
@@ -144,6 +185,18 @@ export function getNFRById(id: number): NFRContent | null {
  * Get NFR by slug
  */
 export function getNFRBySlug(slug: string): NFRContent | null {
+  // First, look up the NFR ID from master metadata
+  const metadata = getMetadataBySlug(slug);
+
+  if (metadata) {
+    // Find the file by ID
+    const filename = findFileById(metadata.id);
+    if (filename) {
+      return parseNFRFile(filename);
+    }
+  }
+
+  // Fallback: iterate through all files
   const files = getNFRFiles();
 
   for (const file of files) {
